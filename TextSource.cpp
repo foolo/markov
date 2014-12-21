@@ -33,9 +33,25 @@ bool TextSource::LoadText(const std::string& filename)
 	return true;
 }
 
+std::vector<int>& TextSource::GetWordIds()
+{
+	return m_wordIds;
+}
+
+void TextSource::surroundWithSpaces(std::string& s, char c)
+{
+	std::string oldString(1, c);
+	std::string newString = std::string(" ") + oldString + " ";
+	replaceAll(s, oldString, newString);
+}
+
 std::vector<std::string> TextSource::GetTokensInLine(std::string line)
 {
-	replaceAll(line, ".", " . ");
+	std::string specialCharacters(".,!\"%&/()=?£$+'");
+	for (auto pC = specialCharacters.begin(); pC != specialCharacters.end(); pC++)
+	{
+		surroundWithSpaces(line, *pC);
+	}
 	std::vector<std::string> splitStrings = Split(line, ' ');
 	std::vector<std::string> resultTokens;
 	for (auto pWord = splitStrings.begin(); pWord != splitStrings.end(); pWord++)

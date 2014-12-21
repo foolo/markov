@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Dictionary.h"
 
 Dictionary::Dictionary()
@@ -11,11 +12,13 @@ int Dictionary::GetIdForWord(const std::string& newWord)
 	bool found = (pWordIdPair != m_wordToId.end());
 	if (found)
 	{
+		std::cout << "Found "  << newWord << "  =  " << pWordIdPair->second << std::endl;
 		return pWordIdPair->second;
 	}
 	else
 	{
 		int newId = m_wordToId.size();
+		std::cout << "Adding "  << newWord << "  =  " << newId << std::endl;
 		m_wordToId[newWord] = newId;
 		return newId;
 	}
