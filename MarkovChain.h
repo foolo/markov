@@ -11,6 +11,8 @@ private:
 public:
 	MarkovState(const std::vector<int>& ids);
 	bool operator<(MarkovState rhs) const;
+
+	std::string DebugToString();
 };
 
 struct StateRange
@@ -30,8 +32,10 @@ public:
 	MarkovChain(int markovOrder);
 	void RegisterState(const MarkovState& state);
 	int DebugGetFrequency(const MarkovState& state);
+	std::vector<std::pair<MarkovState, int>> DebugGetStatesByFrequency();
 	StateRange GetRange(std::vector<int> firstWords);
 	int GetOrder();
+	size_t GetSize();
 	virtual ~MarkovChain();
 
 };

@@ -254,26 +254,39 @@ int main(int argc, char* argv[])
 
 	MarkovChain markovChain(3);
 
-	std::string line;
+	std::string command;
 	bool done = false;
 	while (!done)
 	{
-		std::cin >> line;
-		if (line.empty())
+		std::cout << "chain size: " << markovChain.GetSize() << std::endl;
+
+		std::cin >> command;
+		if (command == "dump")
 		{
-			return 0;
+			std::vector<std::pair<MarkovState, int> > stateFreqs = markovChain.DebugGetStatesByFrequency();
+			for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
+			{
+				std::cout << pStateFreq->first.DebugToString() << " : " << pStateFreq->second << std::endl;
+			}
 		}
+
+
 		FileReader fileReader;
 		Dictionary dictionary;
 		TextSource textSource(fileReader, dictionary);
-		textSource.LoadText(line);
-
+		if (!textSource.LoadText(command))
+		{
+			std::cout << "load failed: " << command << std::endl;
+			continue;
+		}
 		for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
 		{
 			std::vector<int> stateIds;
 			for (int idOffset = 0; idOffset < markovChain.GetOrder(); idOffset++)
 			{
-				stateIds.push_back(textSource.GetWordIds().at(idIndex + idOffset));
+				size_t effectiveIndex = idIndex + idOffset;
+				int id = textSource.GetWordIds().at(effectiveIndex);
+				stateIds.push_back(id);
 			}
 			MarkovState markovState(stateIds);
 			markovChain.RegisterState(markovState);

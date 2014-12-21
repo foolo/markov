@@ -15,7 +15,6 @@ bool TextSource::LoadText(const std::string& filename)
 {
 	if (!m_fileReader.open(filename))
 	{
-		std::cerr << "Could not open " << filename << "." << std::endl;
 		return false;
 	}
 

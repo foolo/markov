@@ -1,5 +1,8 @@
 #include <map>
+#include <algorithm>
 #include <limits.h>
+#include <sstream>
+#include <iostream>
 #include "MarkovChain.h"
 
 bool MarkovState::operator<(MarkovState rhs) const
@@ -20,6 +23,18 @@ bool MarkovState::operator<(MarkovState rhs) const
 	}
 	// equal
 	return false;
+}
+
+std::string MarkovState::DebugToString()
+{
+	//std::stringstream s;
+	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++)
+	{
+		//s << *pId << ", ";
+
+		std::cout << *pId;
+	}
+	return "";
 }
 
 MarkovState::MarkovState(const std::vector<int>& ids) :
@@ -47,6 +62,17 @@ int MarkovChain::DebugGetFrequency(const MarkovState& state)
 	return m_stateFrequencies[state];
 }
 
+std::vector<std::pair<MarkovState, int> > MarkovChain::DebugGetStatesByFrequency()
+{
+	std::vector<std::pair<MarkovState, int>> pairs;
+	for (auto itr = m_stateFrequencies.begin(); itr != m_stateFrequencies.end(); ++itr)
+		pairs.push_back(*itr);
+
+	std::sort(pairs.begin(), pairs.end(), [ = ](const std::pair<MarkovState, int>& a, const std::pair<MarkovState, int>& b){
+		return a.second < b.second;
+	});
+}
+
 StateRange MarkovChain::GetRange(std::vector<int> firstWords)
 {
 	// for example  if firstWords == {7, 5, 2}
@@ -72,6 +98,11 @@ StateRange MarkovChain::GetRange(std::vector<int> firstWords)
 int MarkovChain::GetOrder()
 {
 	return m_markovOrder;
+}
+
+size_t MarkovChain::GetSize()
+{
+	return m_stateFrequencies.size();
 }
 
 MarkovChain::~MarkovChain()
