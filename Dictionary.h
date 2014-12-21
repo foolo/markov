@@ -8,7 +8,7 @@ class Dictionary
 {
 private:
 	std::map<std::string, int> m_wordToId;
-	
+
 public:
 	Dictionary();
 	int GetIdForWord(const std::string& newWord);

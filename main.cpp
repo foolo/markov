@@ -2,6 +2,7 @@
 #include <queue>
 #include "TextSource.h"
 #include "IFileReader.h"
+#include "MarkovChain.h"
 
 
 #define CHECK(A,B) \
@@ -11,12 +12,11 @@
 		exit(1); \
 	}
 
-
-class FileReaderMock : public IFileReader
-{
+class FileReaderMock : public IFileReader {
 public:
 
 	std::queue<std::string> m_lines;
+
 	bool open(const std::string& filename)
 	{
 		m_lines.push("det var en gang,"); // 0 1 2 3 4
@@ -42,10 +42,30 @@ public:
 	}
 };
 
-
 void runtests()
 {
-		
+	{
+		CHECK(MarkovState(std::vector<int>({1, 2, 3})) < MarkovState(std::vector<int>({1, 2, 4})), true)
+		CHECK(MarkovState(std::vector<int>({5, 6})) < MarkovState(std::vector<int>({3, 2, 1})), true)
+		CHECK(MarkovState(std::vector<int>({5})) < MarkovState(std::vector<int>({1, 2, 3})), true)
+		CHECK(MarkovState(std::vector<int>({1, 2, 3})) < MarkovState(std::vector<int>({1, 2, 3, 1})), true)
+
+		CHECK(MarkovState(std::vector<int>({1, 2, 4})) < MarkovState(std::vector<int>({1, 2, 3})), false)
+		CHECK(MarkovState(std::vector<int>({3, 2, 1})) < MarkovState(std::vector<int>({5, 6})), false)
+		CHECK(MarkovState(std::vector<int>({1, 2, 3})) < MarkovState(std::vector<int>({5})), false)
+		CHECK(MarkovState(std::vector<int>({1, 2, 3, 1})) < MarkovState(std::vector<int>({1, 2, 3})), false)
+
+		CHECK(MarkovState(std::vector<int>({4, 2, 7})) < MarkovState(std::vector<int>({4, 2, 7})), false)
+
+		CHECK(MarkovState(std::vector<int>({5})) < MarkovState(std::vector<int>({5})), false)
+		CHECK(MarkovState(std::vector<int>({})) < MarkovState(std::vector<int>({})), false)
+
+		CHECK(MarkovState(std::vector<int>({8, 2, 3})) < MarkovState(std::vector<int>({9, 2, 3})), true)
+		CHECK(MarkovState(std::vector<int>({8, 2, 4})) < MarkovState(std::vector<int>({8, 3, 3})), true)
+		CHECK(MarkovState(std::vector<int>({9, 2, 3})) < MarkovState(std::vector<int>({8, 2, 3})), false)
+		CHECK(MarkovState(std::vector<int>({8, 3, 3})) < MarkovState(std::vector<int>({8, 2, 4})), false)
+	}
+
 	{
 		Dictionary dictionary;
 		FileReaderMock mockFileReader;
@@ -73,7 +93,7 @@ void runtests()
 		CHECK(ids.at(i++), 8); // hette
 		CHECK(ids.at(i++), 6); // .
 	}
-	
+
 	{
 		std::vector<std::string> result = TextSource::Split("test  split a string.that, is amazing", ' ');
 		CHECK(result.size(), 7);
@@ -100,18 +120,25 @@ void runtests()
 		CHECK(result.at(i++), "is");
 		CHECK(result.at(i++), "amazing");
 	}
-	
+
 	{
 		std::string s = "what is this ";
 		TextSource::replaceAll(s, "i", "siri");
 		CHECK(s, "what siris thsiris ");
 	}
-
 }
 
 int main(int argc, char* argv[])
 {
 	runtests();
 	std::cout << "TESTS PASSED" << std::endl;
+
+
+	if (argc < 2)
+	{
+		std::cerr << "missing filename argument" << std::endl;
+	}
+
+
 	return 0;
 }
