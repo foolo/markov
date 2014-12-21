@@ -21,6 +21,7 @@ private:
 public:
 	MarkovChain();
 	void RegisterState(const MarkovState& state);
+	int DebugGetFrequency(const MarkovState& state);
 	virtual ~MarkovChain();
 
 };

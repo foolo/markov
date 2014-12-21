@@ -45,6 +45,27 @@ public:
 void runtests()
 {
 	{
+		MarkovChain markovChain;
+		MarkovState A(std::vector<int>({3, 5, 1}));
+		MarkovState B(std::vector<int>({4, 2, 3}));
+		MarkovState C(std::vector<int>({1, 7, 3}));
+		MarkovState D(std::vector<int>({8, 3, 5}));
+
+		markovChain.RegisterState(A);
+		markovChain.RegisterState(B);
+		markovChain.RegisterState(B);
+		markovChain.RegisterState(A);
+		markovChain.RegisterState(C);
+		markovChain.RegisterState(B);
+		markovChain.RegisterState(D);
+		markovChain.RegisterState(D);
+
+		CHECK(markovChain.DebugGetFrequency(A), 2);
+		CHECK(markovChain.DebugGetFrequency(B), 3);
+		CHECK(markovChain.DebugGetFrequency(C), 1);
+		CHECK(markovChain.DebugGetFrequency(D), 2);
+	}
+	{
 		CHECK(MarkovState(std::vector<int>({1, 2, 3})) < MarkovState(std::vector<int>({1, 2, 4})), true)
 		CHECK(MarkovState(std::vector<int>({5, 6})) < MarkovState(std::vector<int>({3, 2, 1})), true)
 		CHECK(MarkovState(std::vector<int>({5})) < MarkovState(std::vector<int>({1, 2, 3})), true)

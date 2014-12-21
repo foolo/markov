@@ -36,6 +36,11 @@ void MarkovChain::RegisterState(const MarkovState& state)
 	m_stateFrequencies[state]++;
 }
 
+int MarkovChain::DebugGetFrequency(const MarkovState& state)
+{
+	return m_stateFrequencies[state];
+}
+
 MarkovChain::~MarkovChain()
 {
 }
