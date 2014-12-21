@@ -1,8 +1,10 @@
 #include <iostream>
 #include <queue>
+#include <iterator>
 #include "TextSource.h"
 #include "IFileReader.h"
 #include "MarkovChain.h"
+#include "FileReader.h"
 
 
 #define CHECK(A,B) \
@@ -44,8 +46,97 @@ public:
 
 void runtests()
 {
+
+	// Test MarkovChain::GetRange
 	{
-		MarkovChain markovChain;
+		MarkovChain markovChain(3);
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+
+		StateRange stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 1);
+
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+
+		markovChain.RegisterState(std::vector<int>({9, 8, 4}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 1}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 4}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 9}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 9}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 9}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 1}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 1}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 4}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 4}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 7}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 7}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 7}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+		markovChain.RegisterState(std::vector<int>({9, 8, 5}));
+
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 7}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 7}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 7}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+
+		stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 4);
+
+		stateRange = markovChain.GetRange(std::vector<int>({9, 8}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 5);
+
+		stateRange = markovChain.GetRange(std::vector<int>({9}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({3}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({1}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({3, 4}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({3, 6}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({1, 5}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({3, 5, 1, 0}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({3, 5, 1, 9}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({9, 8, 7, 7}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+
+		stateRange = markovChain.GetRange(std::vector<int>({4, 2, 1, 6, 8}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+	}
+
+	// Test MarkovChain::RegisterState
+	{
+		MarkovChain markovChain(3);
 		MarkovState A(std::vector<int>({3, 5, 1}));
 		MarkovState B(std::vector<int>({4, 2, 3}));
 		MarkovState C(std::vector<int>({1, 7, 3}));
@@ -65,6 +156,8 @@ void runtests()
 		CHECK(markovChain.DebugGetFrequency(C), 1);
 		CHECK(markovChain.DebugGetFrequency(D), 2);
 	}
+
+	// Test MarkovState
 	{
 		CHECK(MarkovState(std::vector<int>({1, 2, 3})) < MarkovState(std::vector<int>({1, 2, 4})), true)
 		CHECK(MarkovState(std::vector<int>({5, 6})) < MarkovState(std::vector<int>({3, 2, 1})), true)
@@ -87,6 +180,7 @@ void runtests()
 		CHECK(MarkovState(std::vector<int>({8, 3, 3})) < MarkovState(std::vector<int>({8, 2, 4})), false)
 	}
 
+	// Test TextSource::LoadText
 	{
 		Dictionary dictionary;
 		FileReaderMock mockFileReader;
@@ -115,6 +209,7 @@ void runtests()
 		CHECK(ids.at(i++), 6); // .
 	}
 
+	// Test TextSource::Split
 	{
 		std::vector<std::string> result = TextSource::Split("test  split a string.that, is amazing", ' ');
 		CHECK(result.size(), 7);
@@ -127,6 +222,8 @@ void runtests()
 		CHECK(result.at(i++), "is");
 		CHECK(result.at(i++), "amazing");
 	}
+
+	// Test TextSource::GetTokensInLine
 	{
 		std::vector<std::string> result = TextSource::GetTokensInLine("test  split a string.that, is amazing");
 		CHECK(result.size(), 9);
@@ -142,6 +239,7 @@ void runtests()
 		CHECK(result.at(i++), "amazing");
 	}
 
+	// Test TextSource::replaceAll
 	{
 		std::string s = "what is this ";
 		TextSource::replaceAll(s, "i", "siri");
@@ -154,12 +252,32 @@ int main(int argc, char* argv[])
 	runtests();
 	std::cout << "TESTS PASSED" << std::endl;
 
+	MarkovChain markovChain(3);
 
-	if (argc < 2)
+	std::string line;
+	bool done = false;
+	while (!done)
 	{
-		std::cerr << "missing filename argument" << std::endl;
+		std::cin >> line;
+		if (line.empty())
+		{
+			return 0;
+		}
+		FileReader fileReader;
+		Dictionary dictionary;
+		TextSource textSource(fileReader, dictionary);
+		textSource.LoadText(line);
+
+		for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
+		{
+			std::vector<int> stateIds;
+			for (int idOffset = 0; idOffset < markovChain.GetOrder(); idOffset++)
+			{
+				stateIds.push_back(textSource.GetWordIds().at(idIndex + idOffset));
+			}
+			MarkovState markovState(stateIds);
+			markovChain.RegisterState(markovState);
+		}
 	}
-
-
 	return 0;
 }

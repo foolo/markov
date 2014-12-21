@@ -29,7 +29,6 @@ bool TextSource::LoadText(const std::string& filename)
 			m_wordIds.push_back(id);
 		}
 	}
-
 	return true;
 }
 
