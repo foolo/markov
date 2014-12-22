@@ -12,7 +12,7 @@ bool MarkovState::operator<(MarkovState rhs) const
 		return m_ids.size() < rhs.m_ids.size();
 	}
 
-	for (int i = 0; i < m_ids.size(); i++)
+	for (size_t i = 0; i < m_ids.size(); i++)
 	{
 		int a = m_ids.at(i);
 		int b = rhs.m_ids.at(i);
@@ -25,15 +25,13 @@ bool MarkovState::operator<(MarkovState rhs) const
 	return false;
 }
 
-std::string MarkovState::DebugToString()
+std::string MarkovState::DebugToString() const
 {
-	//std::stringstream s;
 	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++)
 	{
-		//s << *pId << ", ";
-
-		std::cout << *pId;
+		std::cout << *pId << ", ";
 	}
+	std::cout << std::endl;
 	return "";
 }
 
@@ -69,8 +67,9 @@ std::vector<std::pair<MarkovState, int> > MarkovChain::DebugGetStatesByFrequency
 		pairs.push_back(*itr);
 
 	std::sort(pairs.begin(), pairs.end(), [ = ](const std::pair<MarkovState, int>& a, const std::pair<MarkovState, int>& b){
-		return a.second < b.second;
+		return a.second > b.second;
 	});
+	return pairs;
 }
 
 StateRange MarkovChain::GetRange(std::vector<int> firstWords)

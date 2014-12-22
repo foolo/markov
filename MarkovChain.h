@@ -12,7 +12,7 @@ public:
 	MarkovState(const std::vector<int>& ids);
 	bool operator<(MarkovState rhs) const;
 
-	std::string DebugToString();
+	std::string DebugToString() const;
 };
 
 struct StateRange

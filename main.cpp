@@ -261,15 +261,28 @@ int main(int argc, char* argv[])
 		std::cout << "chain size: " << markovChain.GetSize() << std::endl;
 
 		std::cin >> command;
-		if (command == "dump")
+		if (command == "dd")
 		{
+			int m = 0;
 			std::vector<std::pair<MarkovState, int> > stateFreqs = markovChain.DebugGetStatesByFrequency();
 			for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
 			{
-				std::cout << pStateFreq->first.DebugToString() << " : " << pStateFreq->second << std::endl;
+				m++;
+				if (m > 10)
+				{
+					break;
+				}
+				std::cout << "STATE:";
+				pStateFreq->first.DebugToString();
+				std::cout << "freq::" << pStateFreq->second << std::endl;
 			}
+			continue;
 		}
 
+		if (command == "nn")
+		{
+			command = "/home/olof/njals_saga";
+		}
 
 		FileReader fileReader;
 		Dictionary dictionary;

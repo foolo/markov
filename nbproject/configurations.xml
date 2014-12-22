@@ -46,6 +46,7 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <commandLine>-Wall -Werror</commandLine>
         </ccTool>
       </compileType>
       <item path="Dictionary.cpp" ex="false" tool="1" flavor2="0">
