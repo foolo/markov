@@ -12,6 +12,9 @@ private:
 public:
 	Dictionary();
 	int GetIdForWord(const std::string& newWord);
+
+	std::string SearchWordForId(int idToFind);
+
 	virtual ~Dictionary();
 private:
 

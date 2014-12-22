@@ -25,14 +25,20 @@ bool MarkovState::operator<(MarkovState rhs) const
 	return false;
 }
 
-std::string MarkovState::DebugToString() const
+std::string MarkovState::DebugToString(Dictionary &dict) const
 {
+	std::ostringstream ss;
 	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++)
 	{
-		std::cout << *pId << ", ";
+		ss << *pId << " ";
 	}
-	std::cout << std::endl;
-	return "";
+	ss << "     ";
+	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++)
+	{
+		std::string word = dict.SearchWordForId(*pId);
+		ss << word << " ";
+	}
+	return ss.str();
 }
 
 MarkovState::MarkovState(const std::vector<int>& ids) :

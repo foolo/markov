@@ -27,6 +27,16 @@ int Dictionary::GetIdForWord(const std::string& newWord)
 	}
 }
 
+std::string Dictionary::SearchWordForId(int idToFind)
+{
+	for (auto pWordId = m_wordToId.begin(); pWordId != m_wordToId.end(); ++pWordId)
+		if (pWordId->second == idToFind)
+		{
+			return pWordId->first;
+		}
+	return "ID NOT FOUND";
+}
+
 Dictionary::~Dictionary()
 {
 }

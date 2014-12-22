@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "Dictionary.h"
+
 class MarkovState
 {
 private:
@@ -12,7 +14,7 @@ public:
 	MarkovState(const std::vector<int>& ids);
 	bool operator<(MarkovState rhs) const;
 
-	std::string DebugToString() const;
+	std::string DebugToString(Dictionary &dict) const;
 };
 
 struct StateRange

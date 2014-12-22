@@ -247,10 +247,9 @@ void runtests()
 	}
 }
 
-void load(MarkovChain& markovChain)
+void load(MarkovChain& markovChain, Dictionary& dictionary)
 {
 	FileReader fileReader;
-	Dictionary dictionary;
 	TextSource textSource(fileReader, dictionary);
 	if (!textSource.LoadText("/home/olof/njals_saga"))
 	{
@@ -272,19 +271,19 @@ void load(MarkovChain& markovChain)
 	std::cout << "loaded chain size: " << markovChain.GetSize() << std::endl;
 }
 
-void debugTop(MarkovChain& markovChain)
+void debugTop(MarkovChain& markovChain, Dictionary& dictionary)
 {
 	int m = 0;
 	std::vector<std::pair<MarkovState, int> > stateFreqs = markovChain.DebugGetStatesByFrequency();
 	for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
 	{
 		m++;
-		if (m > 10)
+		if (m > 30)
 		{
 			break;
 		}
 		std::cout << "STATE:";
-		pStateFreq->first.DebugToString();
+		std::cout << pStateFreq->first.DebugToString(dictionary) << std::endl;
 		std::cout << "freq::" << pStateFreq->second << std::endl;
 	}
 }
@@ -294,11 +293,12 @@ int main(int argc, char* argv[])
 	runtests();
 	std::cout << "TESTS PASSED" << std::endl;
 
+	Dictionary dictionary;
 	MarkovChain markovChain(3);
 
-	load(markovChain);
+	load(markovChain, dictionary);
 
-	debugTop(markovChain);
+	debugTop(markovChain, dictionary);
 
 
 	return 0;
