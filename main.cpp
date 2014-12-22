@@ -247,6 +247,48 @@ void runtests()
 	}
 }
 
+void load(MarkovChain& markovChain)
+{
+	FileReader fileReader;
+	Dictionary dictionary;
+	TextSource textSource(fileReader, dictionary);
+	if (!textSource.LoadText("/home/olof/njals_saga"))
+	{
+		std::cerr << "load failed: " << std::endl;
+		exit(1);
+	}
+	for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
+	{
+		std::vector<int> stateIds;
+		for (int idOffset = 0; idOffset < markovChain.GetOrder(); idOffset++)
+		{
+			size_t effectiveIndex = idIndex + idOffset;
+			int id = textSource.GetWordIds().at(effectiveIndex);
+			stateIds.push_back(id);
+		}
+		MarkovState markovState(stateIds);
+		markovChain.RegisterState(markovState);
+	}
+	std::cout << "loaded chain size: " << markovChain.GetSize() << std::endl;
+}
+
+void debugTop(MarkovChain& markovChain)
+{
+	int m = 0;
+	std::vector<std::pair<MarkovState, int> > stateFreqs = markovChain.DebugGetStatesByFrequency();
+	for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
+	{
+		m++;
+		if (m > 10)
+		{
+			break;
+		}
+		std::cout << "STATE:";
+		pStateFreq->first.DebugToString();
+		std::cout << "freq::" << pStateFreq->second << std::endl;
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	runtests();
@@ -254,56 +296,10 @@ int main(int argc, char* argv[])
 
 	MarkovChain markovChain(3);
 
-	std::string command;
-	bool done = false;
-	while (!done)
-	{
-		std::cout << "chain size: " << markovChain.GetSize() << std::endl;
+	load(markovChain);
 
-		std::cin >> command;
-		if (command == "dd")
-		{
-			int m = 0;
-			std::vector<std::pair<MarkovState, int> > stateFreqs = markovChain.DebugGetStatesByFrequency();
-			for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
-			{
-				m++;
-				if (m > 10)
-				{
-					break;
-				}
-				std::cout << "STATE:";
-				pStateFreq->first.DebugToString();
-				std::cout << "freq::" << pStateFreq->second << std::endl;
-			}
-			continue;
-		}
+	debugTop(markovChain);
 
-		if (command == "nn")
-		{
-			command = "/home/olof/njals_saga";
-		}
 
-		FileReader fileReader;
-		Dictionary dictionary;
-		TextSource textSource(fileReader, dictionary);
-		if (!textSource.LoadText(command))
-		{
-			std::cout << "load failed: " << command << std::endl;
-			continue;
-		}
-		for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
-		{
-			std::vector<int> stateIds;
-			for (int idOffset = 0; idOffset < markovChain.GetOrder(); idOffset++)
-			{
-				size_t effectiveIndex = idIndex + idOffset;
-				int id = textSource.GetWordIds().at(effectiveIndex);
-				stateIds.push_back(id);
-			}
-			MarkovState markovState(stateIds);
-			markovChain.RegisterState(markovState);
-		}
-	}
 	return 0;
 }
