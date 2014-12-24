@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Dictionary.o \
 	${OBJECTDIR}/FileReader.o \
 	${OBJECTDIR}/MarkovChain.o \
+	${OBJECTDIR}/MarkovState.o \
 	${OBJECTDIR}/TextSource.o \
 	${OBJECTDIR}/Util.o \
 	${OBJECTDIR}/main.o
@@ -81,6 +82,11 @@ ${OBJECTDIR}/MarkovChain.o: MarkovChain.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MarkovChain.o MarkovChain.cpp
+
+${OBJECTDIR}/MarkovState.o: MarkovState.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MarkovState.o MarkovState.cpp
 
 ${OBJECTDIR}/TextSource.o: TextSource.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -2,21 +2,8 @@
 #define	MARKOVCHAIN_H
 
 #include <vector>
-
 #include "Dictionary.h"
-
-class MarkovState
-{
-private:
-	std::vector<int> m_ids;
-
-public:
-	MarkovState(const std::vector<int>& ids);
-	bool operator<(MarkovState rhs) const;
-
-	std::string DebugToString(Dictionary &dict) const;
-	const std::vector<int>& DebugGetIds() const;
-};
+#include "MarkovState.h"
 
 struct StateRange
 {
