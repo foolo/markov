@@ -247,13 +247,13 @@ void runtests()
 	}
 }
 
-void load(MarkovChain& markovChain, Dictionary& dictionary)
+void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& filename)
 {
 	FileReader fileReader;
 	TextSource textSource(fileReader, dictionary);
-	if (!textSource.LoadText("/home/olof/njals_saga"))
+	if (!textSource.LoadText(filename))
 	{
-		std::cerr << "load failed: " << std::endl;
+		std::cerr << "load failed: " << filename << std::endl;
 		exit(1);
 	}
 	for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
@@ -290,13 +290,18 @@ void debugTop(MarkovChain& markovChain, Dictionary& dictionary)
 
 int main(int argc, char* argv[])
 {
-	runtests();
-	std::cout << "TESTS PASSED" << std::endl;
+	if (argc < 2)
+	{
+		runtests();
+		std::cout << "TESTS PASSED" << std::endl;
+		return 0;
+	}
 
+	std::string filename(argv[1]);
 	Dictionary dictionary;
 	MarkovChain markovChain(3);
 
-	load(markovChain, dictionary);
+	load(markovChain, dictionary, filename);
 
 	debugTop(markovChain, dictionary);
 
