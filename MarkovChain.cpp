@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include "MarkovChain.h"
+#include "Util.h"
 
 bool MarkovState::operator<(MarkovState rhs) const
 {
@@ -39,6 +40,11 @@ std::string MarkovState::DebugToString(Dictionary &dict) const
 		ss << word << " ";
 	}
 	return ss.str();
+}
+
+const std::vector<int>& MarkovState::DebugGetIds() const
+{
+	return m_ids;
 }
 
 MarkovState::MarkovState(const std::vector<int>& ids) :
@@ -78,6 +84,14 @@ std::vector<std::pair<MarkovState, int> > MarkovChain::DebugGetStatesByFrequency
 	return pairs;
 }
 
+void MarkovChain::ZeroPad(std::vector<int>& firstWords)
+{
+	while (firstWords.size() < m_markovOrder)
+	{
+		firstWords.push_back(0);
+	}
+}
+
 StateRange MarkovChain::GetRange(std::vector<int> firstWords)
 {
 	// for example  if firstWords == {7, 5, 2}
@@ -85,12 +99,12 @@ StateRange MarkovChain::GetRange(std::vector<int> firstWords)
 	// firstWordsLower = {7, 5, 2, 0}
 	// firstWordsUpper = {7, 5, 3, 0}   // (note the 3)
 
-
 	std::vector<int> firstWordsLower(firstWords);
 	std::vector<int> firstWordsUpper(firstWords);
 	firstWordsUpper.back()++;
-	firstWordsLower.push_back(0);
-	firstWordsUpper.push_back(0);
+
+	ZeroPad(firstWordsLower);
+	ZeroPad(firstWordsUpper);
 
 	MarkovState lowerState(firstWordsLower);
 	MarkovState upperState(firstWordsUpper);

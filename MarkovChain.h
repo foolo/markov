@@ -15,6 +15,7 @@ public:
 	bool operator<(MarkovState rhs) const;
 
 	std::string DebugToString(Dictionary &dict) const;
+	const std::vector<int>& DebugGetIds() const;
 };
 
 struct StateRange
@@ -28,13 +29,14 @@ class MarkovChain
 {
 private:
 	std::map<MarkovState, int> m_stateFrequencies;
-	int m_markovOrder;
+	unsigned m_markovOrder;
 
 public:
 	MarkovChain(int markovOrder);
 	void RegisterState(const MarkovState& state);
 	int DebugGetFrequency(const MarkovState& state);
 	std::vector<std::pair<MarkovState, int>> DebugGetStatesByFrequency();
+	void ZeroPad(std::vector<int>& firstWords);
 	StateRange GetRange(std::vector<int> firstWords);
 	int GetOrder();
 	size_t GetSize();

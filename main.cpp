@@ -5,6 +5,7 @@
 #include "IFileReader.h"
 #include "MarkovChain.h"
 #include "FileReader.h"
+#include "Util.h"
 
 
 #define CHECK(A,B) \
@@ -55,6 +56,14 @@ void runtests()
 		StateRange stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
 		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 1);
 
+		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 1}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 5}));
+
+		markovChain.RegisterState(std::vector<int>({3, 9, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 9, 1}));
+
 		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
 		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
 		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
@@ -96,18 +105,26 @@ void runtests()
 		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
 		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
 		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+
+		// {3, 5}: 4
+		// {3, 6}: 3
+		// {3, 9}: 2
+		// {3}: 4+3+2= 9
+
+		stateRange = markovChain.GetRange(std::vector<int>({3}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 9);
+
+		// {9, 8}: 5
+		// {9}: 5
+
+		stateRange = markovChain.GetRange(std::vector<int>({9}));
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 5);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
 		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 4);
 
 		stateRange = markovChain.GetRange(std::vector<int>({9, 8}));
 		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 5);
-
-		stateRange = markovChain.GetRange(std::vector<int>({9}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
-
-		stateRange = markovChain.GetRange(std::vector<int>({3}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({1}));
 		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
@@ -116,7 +133,7 @@ void runtests()
 		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 6}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 3);
 
 		stateRange = markovChain.GetRange(std::vector<int>({1, 5}));
 		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);

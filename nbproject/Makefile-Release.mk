@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/FileReader.o \
 	${OBJECTDIR}/MarkovChain.o \
 	${OBJECTDIR}/TextSource.o \
+	${OBJECTDIR}/Util.o \
 	${OBJECTDIR}/main.o
 
 
@@ -85,6 +86,11 @@ ${OBJECTDIR}/TextSource.o: TextSource.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TextSource.o TextSource.cpp
+
+${OBJECTDIR}/Util.o: Util.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Util.o Util.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
