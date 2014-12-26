@@ -54,7 +54,7 @@ void runtests()
 		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
 
 		StateRange stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 1);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 1);
 
 		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
 		markovChain.RegisterState(std::vector<int>({3, 6, 1}));
@@ -112,43 +112,43 @@ void runtests()
 		// {3}: 4+3+2= 9
 
 		stateRange = markovChain.GetRange(std::vector<int>({3}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 9);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 9);
 
 		// {9, 8}: 5
 		// {9}: 5
 
 		stateRange = markovChain.GetRange(std::vector<int>({9}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 5);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 5);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 4);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 4);
 
 		stateRange = markovChain.GetRange(std::vector<int>({9, 8}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 5);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 5);
 
 		stateRange = markovChain.GetRange(std::vector<int>({1}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 4}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 6}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 3);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 3);
 
 		stateRange = markovChain.GetRange(std::vector<int>({1, 5}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 5, 1, 0}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 5, 1, 9}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({9, 8, 7, 7}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 
 		stateRange = markovChain.GetRange(std::vector<int>({4, 2, 1, 6, 8}));
-		CHECK(std::distance(stateRange.m_start, stateRange.m_end), 0);
+		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 	}
 
 	// Test MarkovChain::RegisterState
@@ -337,6 +337,8 @@ void debugTop(MarkovChain& markovChain, Dictionary& dictionary)
 		std::cout << "freq::" << pStateFreq->second << std::endl;
 	}
 }
+
+//TODO Convert int to unsigned where applicable
 
 int main(int argc, char* argv[])
 {

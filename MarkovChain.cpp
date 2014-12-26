@@ -6,8 +6,10 @@
 #include "MarkovChain.h"
 #include "Util.h"
 
+//TODO Excract StateRange to own file
+
 StateRange::StateRange(std::map<MarkovState, int>::iterator start, std::map<MarkovState, int>::iterator end) :
-m_start(start), m_end(end)
+m_stateFreqStart(start), m_stateFreqEnd(end)
 {
 }
 

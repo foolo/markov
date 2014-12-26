@@ -7,8 +7,8 @@
 
 struct StateRange
 {
-	std::map<MarkovState, int>::iterator m_start;
-	std::map<MarkovState, int>::iterator m_end;
+	std::map<MarkovState, int>::iterator m_stateFreqStart;
+	std::map<MarkovState, int>::iterator m_stateFreqEnd;
 	StateRange(std::map<MarkovState, int>::iterator start, std::map<MarkovState, int>::iterator end);
 };
 
