@@ -6,7 +6,7 @@
 #include "MarkovChain.h"
 #include "FileReader.h"
 #include "Util.h"
-
+#include "Generator.h"
 
 #define CHECK(A,B) \
 	if ((A) != (B)) { \
@@ -45,19 +45,8 @@ public:
 	}
 };
 
-std::string intv_to_str(std::vector<int> v)
-{
-	std::string s;
-	for (auto it = v.begin(); it != v.end(); it++)
-	{
-		s = s + std::to_string(*it) + ",";
-	}
-	return s;
-}
-
 void runtests()
 {
-
 	// Test MarkovChain::GetRange
 	{
 		MarkovChain markovChain(3);
@@ -185,16 +174,16 @@ void runtests()
 		stateRange = markovChain.GetRange(std::vector<int>({3}));
 		CHECK(stateRange.GetTotalFrequency(), 10);
 
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(0).GetIds()), "3,5,1,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(1).GetIds()), "3,5,1,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(2).GetIds()), "3,5,4,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(3).GetIds()), "3,5,4,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(4).GetIds()), "3,5,5,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(5).GetIds()), "3,5,5,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(6).GetIds()), "3,6,1,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(7).GetIds()), "3,6,4,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(8).GetIds()), "3,6,4,");
-		CHECK(intv_to_str(stateRange.GetStateAtProbability(9).GetIds()), "3,6,5,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(0).GetIds()), "3,5,1,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(1).GetIds()), "3,5,1,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(2).GetIds()), "3,5,4,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(3).GetIds()), "3,5,4,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(4).GetIds()), "3,5,5,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(5).GetIds()), "3,5,5,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(6).GetIds()), "3,6,1,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(7).GetIds()), "3,6,4,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(8).GetIds()), "3,6,4,");
+		CHECK(Util::IntVecToStr(stateRange.GetStateAtProbability(9).GetIds()), "3,6,5,");
 		
 		std::string errStr;
 		try
@@ -412,8 +401,10 @@ int main(int argc, char* argv[])
 
 	load(markovChain, dictionary, filename);
 
-	debugTop(markovChain, dictionary);
+	//debugTop(markovChain, dictionary);
 
-
+	Generator generator(markovChain);
+	generator.Generate(500, dictionary);
 	return 0;
 }
+

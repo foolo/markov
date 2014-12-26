@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>Dictionary.h</itemPath>
       <itemPath>FileReader.h</itemPath>
+      <itemPath>Generator.h</itemPath>
       <itemPath>IFileReader.h</itemPath>
       <itemPath>MarkovChain.h</itemPath>
       <itemPath>MarkovState.h</itemPath>
@@ -21,6 +22,7 @@
                    projectFiles="true">
       <itemPath>Dictionary.cpp</itemPath>
       <itemPath>FileReader.cpp</itemPath>
+      <itemPath>Generator.cpp</itemPath>
       <itemPath>MarkovChain.cpp</itemPath>
       <itemPath>MarkovState.cpp</itemPath>
       <itemPath>TextSource.cpp</itemPath>
@@ -61,6 +63,10 @@
       <item path="FileReader.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FileReader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Generator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Generator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="IFileReader.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -110,6 +116,10 @@
       <item path="FileReader.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FileReader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Generator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Generator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="IFileReader.h" ex="false" tool="3" flavor2="0">
       </item>

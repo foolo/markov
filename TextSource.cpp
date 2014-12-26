@@ -4,6 +4,10 @@
 #include "TextSource.h"
 #include "Dictionary.h"
 #include "IFileReader.h"
+#include <boost/algorithm/string.hpp>
+
+using namespace boost::algorithm;
+
 
 TextSource::TextSource(IFileReader& fileReader, Dictionary& dictionary) :
 m_fileReader(fileReader),
@@ -24,7 +28,9 @@ bool TextSource::LoadText(const std::string& filename)
 		std::vector<std::string> words = GetTokensInLine(line);
 		for (auto pWord = words.begin(); pWord != words.end(); pWord++)
 		{
-			int id = m_dictionary.GetIdForWord(*pWord);
+			std::string word(*pWord);
+			trim(word);
+			int id = m_dictionary.GetIdForWord(word);
 			m_wordIds.push_back(id);
 		}
 	}

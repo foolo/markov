@@ -91,6 +91,12 @@ StateRange MarkovChain::GetRange(std::vector<int> firstWords)
 
 	std::map<MarkovState, int>::iterator start(m_stateFrequencies.lower_bound(lowerState));
 	std::map<MarkovState, int>::iterator end(m_stateFrequencies.upper_bound(upperState));
+	
+	if (start == end)
+	{
+		throw "Empty range";
+	}
+	
 	return StateRange(start, end);
 }
 

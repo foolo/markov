@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Dictionary.o \
 	${OBJECTDIR}/FileReader.o \
+	${OBJECTDIR}/Generator.o \
 	${OBJECTDIR}/MarkovChain.o \
 	${OBJECTDIR}/MarkovState.o \
 	${OBJECTDIR}/TextSource.o \
@@ -77,6 +78,11 @@ ${OBJECTDIR}/FileReader.o: FileReader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FileReader.o FileReader.cpp
+
+${OBJECTDIR}/Generator.o: Generator.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Generator.o Generator.cpp
 
 ${OBJECTDIR}/MarkovChain.o: MarkovChain.cpp 
 	${MKDIR} -p ${OBJECTDIR}
