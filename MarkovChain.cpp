@@ -13,6 +13,16 @@ m_stateFreqStart(start), m_stateFreqEnd(end)
 {
 }
 
+int StateRange::GetTotalFrequency()
+{
+	int sum = 0;
+	for (auto pStateFreq = m_stateFreqStart; pStateFreq != m_stateFreqEnd; pStateFreq++)
+	{
+		sum += pStateFreq->second;
+	}
+	return sum;
+}
+
 MarkovChain::MarkovChain(int markovOrder) :
 m_markovOrder(markovOrder)
 {

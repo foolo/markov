@@ -151,6 +151,31 @@ void runtests()
 		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 	}
 
+	// Test StateRange::GetTotalFrequency
+	{
+		MarkovChain markovChain(3);
+		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 1}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 5}));
+
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+
+		StateRange stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
+		CHECK(stateRange.GetTotalFrequency(), 6);
+		
+		stateRange = markovChain.GetRange(std::vector<int>({3, 6}));
+		CHECK(stateRange.GetTotalFrequency(), 4);
+		
+		stateRange = markovChain.GetRange(std::vector<int>({3}));
+		CHECK(stateRange.GetTotalFrequency(), 10);
+	}
+
 	// Test MarkovChain::RegisterState
 	{
 		MarkovChain markovChain(3);
