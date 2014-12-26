@@ -15,7 +15,7 @@ public:
 	bool operator<(MarkovState rhs) const;
 
 	std::string DebugToString(Dictionary &dict) const;
-	const std::vector<int>& DebugGetIds() const;
+	const std::vector<int>& GetIds() const;
 };
 
 #endif	/* MARKOVSTATE_H */

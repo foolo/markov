@@ -45,6 +45,16 @@ public:
 	}
 };
 
+std::string intv_to_str(std::vector<int> v)
+{
+	std::string s;
+	for (auto it = v.begin(); it != v.end(); it++)
+	{
+		s = s + std::to_string(*it) + ",";
+	}
+	return s;
+}
+
 void runtests()
 {
 
@@ -151,7 +161,7 @@ void runtests()
 		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 0);
 	}
 
-	// Test StateRange::GetTotalFrequency
+	// Test StateRange::GetTotalFrequency and GetStateAtProbability
 	{
 		MarkovChain markovChain(3);
 		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
@@ -168,12 +178,34 @@ void runtests()
 
 		StateRange stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
 		CHECK(stateRange.GetTotalFrequency(), 6);
-		
+
 		stateRange = markovChain.GetRange(std::vector<int>({3, 6}));
 		CHECK(stateRange.GetTotalFrequency(), 4);
-		
+
 		stateRange = markovChain.GetRange(std::vector<int>({3}));
 		CHECK(stateRange.GetTotalFrequency(), 10);
+
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(0).GetIds()), "3,5,1,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(1).GetIds()), "3,5,1,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(2).GetIds()), "3,5,4,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(3).GetIds()), "3,5,4,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(4).GetIds()), "3,5,5,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(5).GetIds()), "3,5,5,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(6).GetIds()), "3,6,1,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(7).GetIds()), "3,6,4,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(8).GetIds()), "3,6,4,");
+		CHECK(intv_to_str(stateRange.GetStateAtProbability(9).GetIds()), "3,6,5,");
+		
+		std::string errStr;
+		try
+		{
+			stateRange.GetStateAtProbability(10);
+		}
+		catch (char const* err)
+		{
+			errStr = std::string(err);
+		}
+		CHECK (errStr, "Out of range")
 	}
 
 	// Test MarkovChain::RegisterState

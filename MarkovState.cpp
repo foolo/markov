@@ -37,7 +37,7 @@ std::string MarkovState::DebugToString(Dictionary &dict) const
 	return ss.str();
 }
 
-const std::vector<int>& MarkovState::DebugGetIds() const
+const std::vector<int>& MarkovState::GetIds() const
 {
 	return m_ids;
 }

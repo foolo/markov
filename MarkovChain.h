@@ -11,6 +11,7 @@ struct StateRange
 	std::map<MarkovState, int>::iterator m_stateFreqEnd;
 	StateRange(std::map<MarkovState, int>::iterator start, std::map<MarkovState, int>::iterator end);
 	int GetTotalFrequency();
+	MarkovState GetStateAtProbability(int p);
 };
 
 class MarkovChain

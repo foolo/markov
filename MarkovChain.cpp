@@ -23,6 +23,20 @@ int StateRange::GetTotalFrequency()
 	return sum;
 }
 
+MarkovState StateRange::GetStateAtProbability(int p)
+{
+	int sum = 0;
+	for (auto pStateFreq = m_stateFreqStart; pStateFreq != m_stateFreqEnd; pStateFreq++)
+	{
+		sum += pStateFreq->second;
+		if (sum > p)
+		{
+			return pStateFreq->first;
+		}
+	}
+	throw "Out of range";
+}
+
 MarkovChain::MarkovChain(int markovOrder) :
 m_markovOrder(markovOrder)
 {
