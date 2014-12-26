@@ -174,6 +174,39 @@ void runtests()
 		CHECK(markovChain.DebugGetFrequency(D), 2);
 	}
 
+	// Test MarkovChain::GetAccumulatedFrequencies
+	{
+		MarkovChain markovChain(3);
+
+		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 1}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 6, 5}));
+
+		markovChain.RegisterState(std::vector<int>({3, 9, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 9, 1}));
+
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 4}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 5}));
+		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
+
+		std::vector<unsigned> accFreqs = markovChain.GetAccumulatedFrequencies();
+		CHECK(accFreqs.size(), 8);
+		int i = 0;
+		CHECK(accFreqs.at(i++), 2); // 3 5 1	/ 2		/ 2
+		CHECK(accFreqs.at(i++), 5); // 3 5 4	/ 3		/ 5
+		CHECK(accFreqs.at(i++), 6); // 3 5 5	/ 1		/ 6
+		CHECK(accFreqs.at(i++), 7); // 3 6 1	/ 1		/ 7
+		CHECK(accFreqs.at(i++), 9); // 3 6 4	/ 2		/ 9
+		CHECK(accFreqs.at(i++), 10); // 3 6 5	/ 1		/ 10
+		CHECK(accFreqs.at(i++), 11); // 3 9 1	/ 1		/ 11
+		CHECK(accFreqs.at(i++), 12); // 3 9 5	/ 1		/ 12
+	}
+
+
 	// Test MarkovState
 	{
 		CHECK(MarkovState(std::vector<int>({1, 2, 3})) < MarkovState(std::vector<int>({1, 2, 4})), true)

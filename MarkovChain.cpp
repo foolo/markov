@@ -78,6 +78,18 @@ size_t MarkovChain::GetSize()
 	return m_stateFrequencies.size();
 }
 
+std::vector<unsigned> MarkovChain::GetAccumulatedFrequencies()
+{
+	std::vector<unsigned> accFreqs;
+	unsigned accFreq = 0;
+	for (auto pStateFreq = m_stateFrequencies.begin(); pStateFreq != m_stateFrequencies.end(); pStateFreq++)
+	{
+		accFreq += pStateFreq->second;
+		accFreqs.push_back(accFreq);
+	}
+	return accFreqs;
+}
+
 MarkovChain::~MarkovChain()
 {
 }
