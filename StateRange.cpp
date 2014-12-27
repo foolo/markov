@@ -5,9 +5,9 @@ m_stateFreqStart(start), m_stateFreqEnd(end)
 {
 }
 
-int StateRange::GetTotalFrequency()
+freq_t StateRange::GetTotalFrequency()
 {
-	int sum = 0;
+	freq_t sum = 0;
 	for (auto pStateFreq = m_stateFreqStart; pStateFreq != m_stateFreqEnd; pStateFreq++)
 	{
 		sum += pStateFreq->second;
@@ -15,9 +15,9 @@ int StateRange::GetTotalFrequency()
 	return sum;
 }
 
-MarkovState StateRange::GetStateAtProbability(int p)
+MarkovState StateRange::GetStateAtProbability(freq_t p)
 {
-	int sum = 0;
+	freq_t sum = 0;
 	for (auto pStateFreq = m_stateFreqStart; pStateFreq != m_stateFreqEnd; pStateFreq++)
 	{
 		sum += pStateFreq->second;

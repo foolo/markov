@@ -4,8 +4,6 @@
 #include <map>
 #include <string>
 
-typedef unsigned id_t;
-
 class Dictionary
 {
 private:

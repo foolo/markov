@@ -12,6 +12,7 @@
       <itemPath>MarkovState.h</itemPath>
       <itemPath>StateRange.h</itemPath>
       <itemPath>TextSource.h</itemPath>
+      <itemPath>Types.h</itemPath>
       <itemPath>UnitTests.h</itemPath>
       <itemPath>Util.h</itemPath>
     </logicalFolder>
@@ -90,6 +91,8 @@
       </item>
       <item path="TextSource.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Types.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="UnitTests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="UnitTests.h" ex="false" tool="3" flavor2="0">
@@ -150,6 +153,8 @@
       <item path="TextSource.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TextSource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Types.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="UnitTests.cpp" ex="false" tool="1" flavor2="0">
       </item>

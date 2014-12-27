@@ -25,8 +25,8 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 		//std::cout << "last: " << Util::IntVecToIdAndWords(lastN, dictionary) << std::endl;
 		
 		StateRange probabilityRange = m_markovChain.GetRange(lastN);
-		int totalFreq = probabilityRange.GetTotalFrequency();
-		int p = rand() % totalFreq;
+		freq_t totalFreq = probabilityRange.GetTotalFrequency();
+		freq_t p = rand() % totalFreq;
 		MarkovState state = probabilityRange.GetStateAtProbability(p);
 		
 		

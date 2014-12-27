@@ -17,18 +17,18 @@ void MarkovChain::RegisterState(const MarkovState& state)
 	m_stateFrequencies[state]++;
 }
 
-int MarkovChain::DebugGetFrequency(const MarkovState& state)
+freq_t MarkovChain::DebugGetFrequency(const MarkovState& state)
 {
 	return m_stateFrequencies[state];
 }
 
-std::vector<std::pair<MarkovState, int> > MarkovChain::DebugGetStatesByFrequency()
+std::vector<std::pair<MarkovState, freq_t> > MarkovChain::DebugGetStatesByFrequency()
 {
-	std::vector<std::pair<MarkovState, int>> pairs;
+	std::vector<std::pair<MarkovState, freq_t>> pairs;  //TODO convert to type
 	for (auto itr = m_stateFrequencies.begin(); itr != m_stateFrequencies.end(); ++itr)
 		pairs.push_back(*itr);
 
-	std::sort(pairs.begin(), pairs.end(), [ = ](const std::pair<MarkovState, int>& a, const std::pair<MarkovState, int>& b){
+	std::sort(pairs.begin(), pairs.end(), [ = ](const std::pair<MarkovState, freq_t>& a, const std::pair<MarkovState, freq_t>& b){
 		return a.second > b.second;
 	});
 	return pairs;

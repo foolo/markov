@@ -33,7 +33,7 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 void debugTop(MarkovChain& markovChain, Dictionary& dictionary)
 {
 	int m = 0;
-	std::vector<std::pair<MarkovState, int> > stateFreqs = markovChain.DebugGetStatesByFrequency();
+	std::vector<std::pair<MarkovState, freq_t> > stateFreqs = markovChain.DebugGetStatesByFrequency();
 	for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
 	{
 		m++;
@@ -46,8 +46,6 @@ void debugTop(MarkovChain& markovChain, Dictionary& dictionary)
 		std::cout << "freq::" << pStateFreq->second << std::endl;
 	}
 }
-
-//TODO Convert int to unsigned where applicable
 
 int main(int argc, char* argv[])
 {
