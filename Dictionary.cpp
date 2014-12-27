@@ -7,11 +7,9 @@ Dictionary::Dictionary()
 
 id_t Dictionary::GetIdForWord(const std::string& newWord)
 {
-
 	// TODO can be simplified to just a map lookup, and then check if result is 0
 
-	// TODO convert std::map<std::string, id_t> to a type?
-	std::map<std::string, id_t>::iterator pWordIdPair = m_wordToId.find(newWord);
+	WordIdMap_t::iterator pWordIdPair = m_wordToId.find(newWord);
 
 	bool found = (pWordIdPair != m_wordToId.end());
 	if (found)

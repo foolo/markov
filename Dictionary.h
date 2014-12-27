@@ -4,10 +4,12 @@
 #include <map>
 #include <string>
 
+typedef std::map<std::string, id_t> WordIdMap_t;
+
 class Dictionary
 {
 private:
-	std::map<std::string, id_t> m_wordToId;
+	WordIdMap_t m_wordToId;
 
 public:
 	Dictionary();
