@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Generator.o \
 	${OBJECTDIR}/MarkovChain.o \
 	${OBJECTDIR}/MarkovState.o \
+	${OBJECTDIR}/StateRange.o \
 	${OBJECTDIR}/TextSource.o \
 	${OBJECTDIR}/UnitTests.o \
 	${OBJECTDIR}/Util.o \
@@ -94,6 +95,11 @@ ${OBJECTDIR}/MarkovState.o: MarkovState.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MarkovState.o MarkovState.cpp
+
+${OBJECTDIR}/StateRange.o: StateRange.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/StateRange.o StateRange.cpp
 
 ${OBJECTDIR}/TextSource.o: TextSource.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -2,6 +2,7 @@
 #include "MarkovChain.h"
 #include "Util.h"
 #include "TextSource.h"
+#include "StateRange.h"
 
 void UnitTests::Run()
 {
