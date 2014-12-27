@@ -34,7 +34,7 @@ std::vector<std::pair<MarkovState, int> > MarkovChain::DebugGetStatesByFrequency
 	return pairs;
 }
 
-void MarkovChain::ZeroPad(std::vector<int>& firstWords)
+void MarkovChain::ZeroPad(std::vector<id_t>& firstWords)
 {
 	while (firstWords.size() < m_markovOrder)
 	{
@@ -42,15 +42,15 @@ void MarkovChain::ZeroPad(std::vector<int>& firstWords)
 	}
 }
 
-StateRange MarkovChain::GetRange(std::vector<int> firstWords)
+StateRange MarkovChain::GetRange(std::vector<id_t> firstWords)
 {
 	// for example  if firstWords == {7, 5, 2}
 	//
 	// firstWordsLower = {7, 5, 2, 0}
 	// firstWordsUpper = {7, 5, 3, 0}   // (note the 3)
 
-	std::vector<int> firstWordsLower(firstWords);
-	std::vector<int> firstWordsUpper(firstWords);
+	std::vector<id_t> firstWordsLower(firstWords);
+	std::vector<id_t> firstWordsUpper(firstWords);
 	firstWordsUpper.back()++;
 
 	ZeroPad(firstWordsLower);

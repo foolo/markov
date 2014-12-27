@@ -19,8 +19,8 @@ public:
 	void RegisterState(const MarkovState& state);
 	int DebugGetFrequency(const MarkovState& state);
 	std::vector<std::pair<MarkovState, int>> DebugGetStatesByFrequency();
-	void ZeroPad(std::vector<int>& firstWords);
-	StateRange GetRange(std::vector<int> firstWords);
+	void ZeroPad(std::vector<id_t>& firstWords);
+	StateRange GetRange(std::vector<id_t> firstWords);
 	int GetOrder();
 	size_t GetSize();
 	std::vector<unsigned> GetAccumulatedFrequencies();

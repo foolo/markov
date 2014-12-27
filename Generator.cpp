@@ -7,19 +7,19 @@ m_markovChain(markovChain)
 {
 }
 
-std::vector<int> Generator::Generate(unsigned count, Dictionary& dictionary)
+std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 {
 	std::string resultStr;
 	std::vector<unsigned> accFreq = m_markovChain.GetAccumulatedFrequencies();
-	int periodId = dictionary.GetIdForWord(".");
-	std::vector<int> result;
+	id_t periodId = dictionary.GetIdForWord(".");
+	std::vector<id_t> result;
 	result.push_back(periodId);
 	
 	std::cout << "Starting generator" << std::endl;
 	
 	for(unsigned i = 0; i < count; i++)
 	{
-		std::vector<int> lastN = GetLastN(result);
+		std::vector<id_t> lastN = GetLastN(result);
 		
 		// debug
 		//std::cout << "last: " << Util::IntVecToIdAndWords(lastN, dictionary) << std::endl;
@@ -30,14 +30,14 @@ std::vector<int> Generator::Generate(unsigned count, Dictionary& dictionary)
 		MarkovState state = probabilityRange.GetStateAtProbability(p);
 		
 		
-		int lastRelevantId = lastN.size(); 
+		id_t lastRelevantId = lastN.size(); 
 		// Normally lastRelevantId is equal to (m_markovChain.GetOrder() - 1)
 		// which means that state.GetIds(lastRelevantId) should be the same as 
 		// state.GetIds().back(), i.e. all ids are relevant.
 		// Otherwise if lastRelevantId is smaller, then we will get the last
 		// relevant part of the markov state (that should only happen in the very beginning of the text)
 			
-		int newWordId = state.GetIds().at(lastRelevantId);
+		id_t newWordId = state.GetIds().at(lastRelevantId);
 		result.push_back(newWordId);
 		std::string newWord = dictionary.SearchWordForId(newWordId);
 		
@@ -57,14 +57,14 @@ std::vector<int> Generator::Generate(unsigned count, Dictionary& dictionary)
 	return result;
 }
 
-std::vector<int> Generator::GetLastN(const std::vector<int>& v)
+std::vector<id_t> Generator::GetLastN(const std::vector<id_t>& v)
 {
 	unsigned N = m_markovChain.GetOrder() - 1;
 	if(v.size() < N)
 	{
 		return v;
 	}
-	return std::vector<int>(v.end() - N, v.end());
+	return std::vector<id_t>(v.end() - N, v.end());
 }
 
 Generator::~Generator()

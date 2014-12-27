@@ -17,11 +17,11 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 	}
 	for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
 	{
-		std::vector<int> stateIds;
+		std::vector<id_t> stateIds;
 		for (int idOffset = 0; idOffset < markovChain.GetOrder(); idOffset++)
 		{
 			size_t effectiveIndex = idIndex + idOffset;
-			int id = textSource.GetWordIds().at(effectiveIndex);
+			id_t id = textSource.GetWordIds().at(effectiveIndex);
 			stateIds.push_back(id);
 		}
 		MarkovState markovState(stateIds);

@@ -12,10 +12,10 @@ private:
 
 public:
 	Generator(MarkovChain& markovChain);
-	std::vector<int> Generate(unsigned count, Dictionary& dictionary);
+	std::vector<id_t> Generate(unsigned count, Dictionary& dictionary);
 	virtual ~Generator();
 private:
-	std::vector<int> GetLastN(const std::vector<int>& v);
+	std::vector<id_t> GetLastN(const std::vector<id_t>& v);
 };
 
 #endif	/* GENERATOR_H */

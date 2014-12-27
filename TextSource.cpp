@@ -30,14 +30,14 @@ bool TextSource::LoadText(const std::string& filename)
 		{
 			std::string word(*pWord);
 			trim(word);
-			int id = m_dictionary.GetIdForWord(word);
+			id_t id = m_dictionary.GetIdForWord(word);
 			m_wordIds.push_back(id);
 		}
 	}
 	return true;
 }
 
-std::vector<int>& TextSource::GetWordIds()
+std::vector<id_t>& TextSource::GetWordIds()
 {
 	return m_wordIds;
 }

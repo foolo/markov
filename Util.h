@@ -7,8 +7,8 @@ class Dictionary;
 
 class Util {
 public:
-	static std::string IntVecToStr(const std::vector<int>& v);
-	static std::string IntVecToIdAndWords(const std::vector<int>& v, Dictionary& dictionary);
+	static std::string IdVecToStr(const std::vector<id_t>& v);
+	static std::string IdVecToIdAndWords(const std::vector<id_t>& v, Dictionary& dictionary);
 
 private:
 

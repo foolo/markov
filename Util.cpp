@@ -5,7 +5,7 @@
 #include "Util.h"
 #include "Dictionary.h"
 
-std::string Util::IntVecToStr(const std::vector<int>& v) {
+std::string Util::IdVecToStr(const std::vector<id_t>& v) {
 	std::ostringstream ss;
 	for (auto it = v.begin(); it != v.end(); it++)
 	{
@@ -14,7 +14,7 @@ std::string Util::IntVecToStr(const std::vector<int>& v) {
 	return ss.str();
 }
 
-std::string Util::IntVecToIdAndWords(const std::vector<int>& v, Dictionary& dictionary)
+std::string Util::IdVecToIdAndWords(const std::vector<id_t>& v, Dictionary& dictionary)
 {
 	std::ostringstream ss;
 	for (auto pId = v.begin(); pId != v.end(); pId++)

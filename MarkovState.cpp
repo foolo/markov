@@ -10,8 +10,8 @@ bool MarkovState::operator<(MarkovState rhs) const
 
 	for (size_t i = 0; i < m_ids.size(); i++)
 	{
-		int a = m_ids.at(i);
-		int b = rhs.m_ids.at(i);
+		id_t a = m_ids.at(i);
+		id_t b = rhs.m_ids.at(i);
 		if (a != b)
 		{
 			return a < b;
@@ -37,12 +37,12 @@ std::string MarkovState::DebugToString(Dictionary &dict) const
 	return ss.str();
 }
 
-const std::vector<int>& MarkovState::GetIds() const
+const std::vector<id_t>& MarkovState::GetIds() const
 {
 	return m_ids;
 }
 
-MarkovState::MarkovState(const std::vector<int>& ids) :
+MarkovState::MarkovState(const std::vector<id_t>& ids) :
 m_ids(ids)
 {
 }
