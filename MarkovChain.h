@@ -8,6 +8,8 @@
 
 class StateRange;
 
+typedef std::vector<std::pair<MarkovState, freq_t>> StateFreqList_t;
+
 class MarkovChain
 {
 private:
@@ -18,7 +20,7 @@ public:
 	MarkovChain(int markovOrder);
 	void RegisterState(const MarkovState& state);
 	freq_t DebugGetFrequency(const MarkovState& state);
-	std::vector<std::pair<MarkovState, freq_t>> DebugGetStatesByFrequency(); // TODO remove debug fuctions
+	StateFreqList_t DebugGetStatesByFrequency(); // TODO remove debug fuctions
 	void ZeroPad(std::vector<id_t>& firstWords);
 	StateRange GetRange(std::vector<id_t> firstWords);
 	int GetOrder();

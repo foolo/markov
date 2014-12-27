@@ -22,9 +22,9 @@ freq_t MarkovChain::DebugGetFrequency(const MarkovState& state)
 	return m_stateFrequencies[state];
 }
 
-std::vector<std::pair<MarkovState, freq_t> > MarkovChain::DebugGetStatesByFrequency()
+StateFreqList_t MarkovChain::DebugGetStatesByFrequency()
 {
-	std::vector<std::pair<MarkovState, freq_t>> pairs;  //TODO convert to type
+	StateFreqList_t pairs;
 	for (auto itr = m_stateFrequencies.begin(); itr != m_stateFrequencies.end(); ++itr)
 		pairs.push_back(*itr);
 

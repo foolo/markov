@@ -30,10 +30,10 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 	std::cout << "loaded chain size: " << markovChain.GetSize() << std::endl;
 }
 
-void debugTop(MarkovChain& markovChain, Dictionary& dictionary)
+void ShowTop(MarkovChain& markovChain, Dictionary& dictionary)
 {
 	int m = 0;
-	std::vector<std::pair<MarkovState, freq_t> > stateFreqs = markovChain.DebugGetStatesByFrequency();
+	StateFreqList_t stateFreqs = markovChain.DebugGetStatesByFrequency();
 	for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
 	{
 		m++;
@@ -41,9 +41,7 @@ void debugTop(MarkovChain& markovChain, Dictionary& dictionary)
 		{
 			break;
 		}
-		std::cout << "STATE:";
-		std::cout << pStateFreq->first.DebugToString(dictionary) << std::endl;
-		std::cout << "freq::" << pStateFreq->second << std::endl;
+		std::cout << pStateFreq->second << "\t" << pStateFreq->first.DebugToString(dictionary) << std::endl;
 	}
 }
 
@@ -70,10 +68,9 @@ int main(int argc, char* argv[])
 
 	load(markovChain, dictionary, filename);
 
-	//debugTop(markovChain, dictionary);
+	ShowTop(markovChain, dictionary);
 
 	Generator generator(markovChain);
 	generator.Generate(500, dictionary);
 	return 0;
 }
-

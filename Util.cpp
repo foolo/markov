@@ -22,5 +22,4 @@ std::string Util::IdVecToIdAndWords(const std::vector<id_t>& v, Dictionary& dict
 		ss << dictionary.SearchWordForId(*pId) << "(" << *pId << ") ";
 	}
 	return ss.str();
-
 }

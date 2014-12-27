@@ -1,5 +1,6 @@
 #include "MarkovState.h"
 #include <sstream>
+#include <iomanip>
 
 bool MarkovState::operator<(MarkovState rhs) const
 {
@@ -7,7 +8,6 @@ bool MarkovState::operator<(MarkovState rhs) const
 	{
 		return m_ids.size() < rhs.m_ids.size();
 	}
-
 	for (size_t i = 0; i < m_ids.size(); i++)
 	{
 		id_t a = m_ids.at(i);
@@ -26,13 +26,13 @@ std::string MarkovState::DebugToString(Dictionary &dict) const
 	std::ostringstream ss;
 	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++)
 	{
-		ss << *pId << " ";
+		ss << std::setfill(' ') << std::setw(4) << *pId << " ";
 	}
-	ss << "     ";
+	ss << "   ";
 	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++)
 	{
 		std::string word = dict.SearchWordForId(*pId);
-		ss << word << " ";
+		ss << word << "\t";
 	}
 	return ss.str();
 }
