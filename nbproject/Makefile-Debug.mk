@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/MarkovChain.o \
 	${OBJECTDIR}/MarkovState.o \
 	${OBJECTDIR}/TextSource.o \
+	${OBJECTDIR}/UnitTests.o \
 	${OBJECTDIR}/Util.o \
 	${OBJECTDIR}/main.o
 
@@ -98,6 +99,11 @@ ${OBJECTDIR}/TextSource.o: TextSource.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TextSource.o TextSource.cpp
+
+${OBJECTDIR}/UnitTests.o: UnitTests.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UnitTests.o UnitTests.cpp
 
 ${OBJECTDIR}/Util.o: Util.cpp 
 	${MKDIR} -p ${OBJECTDIR}
