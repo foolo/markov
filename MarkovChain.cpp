@@ -22,11 +22,13 @@ freq_t MarkovChain::DebugGetFrequency(const MarkovState& state)
 	return m_stateFrequencies[state];
 }
 
-StateFreqList_t MarkovChain::DebugGetStatesByFrequency()
+StateFreqList_t MarkovChain::GetStatesByFrequency()
 {
 	StateFreqList_t pairs;
 	for (auto itr = m_stateFrequencies.begin(); itr != m_stateFrequencies.end(); ++itr)
+	{
 		pairs.push_back(*itr);
+	}
 
 	std::sort(pairs.begin(), pairs.end(), [ = ](const std::pair<MarkovState, freq_t>& a, const std::pair<MarkovState, freq_t>& b){
 		return a.second > b.second;
@@ -61,12 +63,12 @@ StateRange MarkovChain::GetRange(std::vector<id_t> firstWords)
 
 	StateFreqMap_t::iterator start(m_stateFrequencies.lower_bound(lowerState));
 	StateFreqMap_t::iterator end(m_stateFrequencies.upper_bound(upperState));
-	
+
 	if (start == end)
 	{
 		throw "Empty range";
 	}
-	
+
 	return StateRange(start, end);
 }
 

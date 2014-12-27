@@ -33,7 +33,7 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 void ShowTop(MarkovChain& markovChain, Dictionary& dictionary)
 {
 	int m = 0;
-	StateFreqList_t stateFreqs = markovChain.DebugGetStatesByFrequency();
+	StateFreqList_t stateFreqs = markovChain.GetStatesByFrequency();
 	for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
 	{
 		m++;

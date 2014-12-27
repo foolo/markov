@@ -20,7 +20,7 @@ public:
 	MarkovChain(int markovOrder);
 	void RegisterState(const MarkovState& state);
 	freq_t DebugGetFrequency(const MarkovState& state);
-	StateFreqList_t DebugGetStatesByFrequency(); // TODO remove debug fuctions
+	StateFreqList_t GetStatesByFrequency();
 	void ZeroPad(std::vector<id_t>& firstWords);
 	StateRange GetRange(std::vector<id_t> firstWords);
 	int GetOrder();
