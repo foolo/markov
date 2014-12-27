@@ -4,13 +4,14 @@
 #include <vector>
 #include "Dictionary.h"
 #include "MarkovState.h"
+#include "StateRange.h"
 
 class StateRange;
 
 class MarkovChain
 {
 private:
-	std::map<MarkovState, int> m_stateFrequencies;
+	StateFreqMap_t m_stateFrequencies;
 	unsigned m_markovOrder;
 
 public:

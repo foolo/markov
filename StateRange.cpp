@@ -1,6 +1,6 @@
 #include "StateRange.h"
 
-StateRange::StateRange(std::map<MarkovState, int>::iterator start, std::map<MarkovState, int>::iterator end) :
+StateRange::StateRange(StateFreqMap_t::iterator start, StateFreqMap_t::iterator end) :
 m_stateFreqStart(start), m_stateFreqEnd(end)
 {
 }
@@ -27,4 +27,9 @@ MarkovState StateRange::GetStateAtProbability(int p)
 		}
 	}
 	throw "Out of range";
+}
+
+StateFreqMap_t::difference_type StateRange::Size()
+{
+	return std::distance(m_stateFreqStart, m_stateFreqEnd);
 }

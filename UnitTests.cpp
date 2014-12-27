@@ -12,7 +12,7 @@ void UnitTests::Run()
 		markovChain.RegisterState(std::vector<int>({3, 5, 1}));
 
 		StateRange stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
-		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 1);
+		CHECK(stateRange.Size(), 1);
 
 		markovChain.RegisterState(std::vector<int>({3, 6, 4}));
 		markovChain.RegisterState(std::vector<int>({3, 6, 1}));
@@ -70,19 +70,19 @@ void UnitTests::Run()
 		// {3}: 4+3+2= 9
 
 		stateRange = markovChain.GetRange(std::vector<int>({3}));
-		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 9);
+		CHECK(stateRange.Size(), 9);
 
 		// {9, 8}: 5
 		// {9}: 5
 
 		stateRange = markovChain.GetRange(std::vector<int>({9}));
-		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 5);
+		CHECK(stateRange.Size(), 5);
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 5}));
-		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 4);
+		CHECK(stateRange.Size(), 4);
 
 		stateRange = markovChain.GetRange(std::vector<int>({9, 8}));
-		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 5);
+		CHECK(stateRange.Size(), 5);
 
 
 		std::string errStr;
@@ -110,7 +110,7 @@ void UnitTests::Run()
 
 
 		stateRange = markovChain.GetRange(std::vector<int>({3, 6}));
-		CHECK(std::distance(stateRange.m_stateFreqStart, stateRange.m_stateFreqEnd), 3);
+		CHECK(stateRange.Size(), 3);
 
 		errStr.clear();
 		try

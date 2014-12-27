@@ -59,8 +59,8 @@ StateRange MarkovChain::GetRange(std::vector<int> firstWords)
 	MarkovState lowerState(firstWordsLower);
 	MarkovState upperState(firstWordsUpper);
 
-	std::map<MarkovState, int>::iterator start(m_stateFrequencies.lower_bound(lowerState));
-	std::map<MarkovState, int>::iterator end(m_stateFrequencies.upper_bound(upperState));
+	StateFreqMap_t::iterator start(m_stateFrequencies.lower_bound(lowerState));
+	StateFreqMap_t::iterator end(m_stateFrequencies.upper_bound(upperState));
 	
 	if (start == end)
 	{

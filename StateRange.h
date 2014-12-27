@@ -4,14 +4,17 @@
 #include <map>
 #include "MarkovState.h"
 
+typedef std::map<MarkovState, int> StateFreqMap_t;
+
 class StateRange
 {
+	StateFreqMap_t::iterator m_stateFreqStart;
+	StateFreqMap_t::iterator m_stateFreqEnd;
 public:
-	std::map<MarkovState, int>::iterator m_stateFreqStart;
-	std::map<MarkovState, int>::iterator m_stateFreqEnd;
-	StateRange(std::map<MarkovState, int>::iterator start, std::map<MarkovState, int>::iterator end);
+	StateRange(StateFreqMap_t::iterator start, StateFreqMap_t::iterator end);
 	int GetTotalFrequency();
 	MarkovState GetStateAtProbability(int p);
+	StateFreqMap_t::difference_type Size();
 };
 
 #endif	/* STATERANGE_H */
