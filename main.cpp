@@ -45,6 +45,16 @@ void ShowTop(MarkovChain& markovChain, Dictionary& dictionary)
 	}
 }
 
+void initLocale(int category, const std::string& locStr)
+{
+	char* res = setlocale(category, locStr.c_str());
+	if (res == NULL)
+	{
+		std::cerr << "setlocale " << category << " failed: " << locStr << std::endl;
+		exit(1);
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	if (argc < 2)
@@ -53,7 +63,7 @@ int main(int argc, char* argv[])
 		{
 			UnitTests::Run();
 		}
-		catch(const char *err)
+		catch (const char *err)
 		{
 			std::string errStr(err);
 			std::cout << "CAUGTH: " << errStr << std::endl;
@@ -61,6 +71,8 @@ int main(int argc, char* argv[])
 		std::cout << "TESTS PASSED" << std::endl;
 		return 0;
 	}
+
+	initLocale(LC_ALL, "sv_SE.utf8");
 
 	std::string filename(argv[1]);
 	Dictionary dictionary;

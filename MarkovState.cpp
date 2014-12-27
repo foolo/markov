@@ -1,4 +1,5 @@
 #include "MarkovState.h"
+
 #include <sstream>
 #include <iomanip>
 
@@ -21,6 +22,17 @@ bool MarkovState::operator<(MarkovState rhs) const
 	return false;
 }
 
+std::string ToHex(const std::string& s)
+{
+	std::ostringstream ret;
+
+	for (std::string::size_type i = 0; i < s.length(); ++i)
+	{
+		ret << " " << std::hex << std::setfill('0') << std::setw(2) << std::nouppercase << (int) s[i];
+	}
+	return ret.str();
+}
+
 std::string MarkovState::DebugToString(Dictionary &dict) const
 {
 	std::ostringstream ss;
@@ -33,6 +45,12 @@ std::string MarkovState::DebugToString(Dictionary &dict) const
 	{
 		std::string word = dict.SearchWordForId(*pId);
 		ss << word << "\t";
+	}
+
+	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++)
+	{
+		std::string word = dict.SearchWordForId(*pId);
+		ss << "(" << ToHex(word) << ")" << "\t";
 	}
 	return ss.str();
 }
