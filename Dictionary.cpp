@@ -7,20 +7,14 @@ Dictionary::Dictionary()
 
 id_t Dictionary::GetIdForWord(const std::string& newWord)
 {
-	// TODO can be simplified to just a map lookup, and then check if result is 0
-
-	WordIdMap_t::iterator pWordIdPair = m_wordToId.find(newWord);
-
-	bool found = (pWordIdPair != m_wordToId.end());
-	if (found)
+	auto pWordIdPair = m_wordToId.find(newWord);
+	if (pWordIdPair != m_wordToId.end())
 	{
-		//std::cout << "Found " << newWord << "  =  " << pWordIdPair->second << std::endl;
 		return pWordIdPair->second;
 	}
 	else
 	{
 		id_t newId = m_wordToId.size();
-		//std::cout << "Adding " << newWord << "  =  " << newId << std::endl;
 		m_wordToId[newWord] = newId;
 		return newId;
 	}
