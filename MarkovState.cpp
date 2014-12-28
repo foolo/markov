@@ -1,7 +1,7 @@
-#include "MarkovState.h"
-
 #include <sstream>
 #include <iomanip>
+#include "MarkovState.h"
+#include "Dictionary.h"
 
 bool MarkovState::operator<(MarkovState rhs) const
 {
@@ -18,14 +18,12 @@ bool MarkovState::operator<(MarkovState rhs) const
 			return a < b;
 		}
 	}
-	// equal
 	return false;
 }
 
 std::string ToHex(const std::string& s)
 {
 	std::ostringstream ret;
-
 	for (std::string::size_type i = 0; i < s.length(); ++i)
 	{
 		ret << " " << std::hex << std::setfill('0') << std::setw(2) << std::nouppercase << (int) s[i];

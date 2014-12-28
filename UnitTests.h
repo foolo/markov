@@ -12,9 +12,9 @@
 		exit(1); \
 	}
 
-class FileReaderMock : public IFileReader {
+class FileReaderMock : public IFileReader
+{
 public:
-
 	std::queue<std::string> m_lines;
 
 	bool open(const std::string& filename)
@@ -42,14 +42,10 @@ public:
 	}
 };
 
-
-
 class UnitTests
 {
 public:
 	static void Run();
-
 };
 
 #endif	/* UNITTESTS_H */
-

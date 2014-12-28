@@ -1,11 +1,11 @@
 #include <vector>
 #include <sstream>
 #include <string>
-
 #include "Util.h"
 #include "Dictionary.h"
 
-std::string Util::IdVecToStr(const std::vector<id_t>& v) {
+std::string Util::IdVecToStr(const std::vector<id_t>& v)
+{
 	std::ostringstream ss;
 	for (auto it = v.begin(); it != v.end(); it++)
 	{

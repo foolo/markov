@@ -1,14 +1,16 @@
 #ifndef STATERANGE_H
 #define	STATERANGE_H
 
-#include <map>
-#include "MarkovState.h"
 #include "Types.h"
+
+class MarkovState;
 
 class StateRange
 {
+private:
 	StateFreqMap_t::iterator m_stateFreqStart;
 	StateFreqMap_t::iterator m_stateFreqEnd;
+
 public:
 	StateRange(StateFreqMap_t::iterator start, StateFreqMap_t::iterator end);
 	freq_t GetTotalFrequency();
@@ -17,4 +19,3 @@ public:
 };
 
 #endif	/* STATERANGE_H */
-

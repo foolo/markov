@@ -1,9 +1,10 @@
 #ifndef GENERATOR_H
 #define	GENERATOR_H
 
-#include "MarkovChain.h"
-#include "Dictionary.h"
+#include <vector>
 
+class MarkovChain;
+class Dictionary;
 
 class Generator
 {
@@ -19,4 +20,3 @@ private:
 };
 
 #endif	/* GENERATOR_H */
-

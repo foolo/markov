@@ -5,6 +5,7 @@
 #include "FileReader.h"
 #include "Generator.h"
 #include "UnitTests.h"
+#include "Dictionary.h"
 
 void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& filename)
 {

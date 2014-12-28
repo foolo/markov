@@ -29,4 +29,3 @@ bool FileReader::read_line(std::string& lineOut)
 FileReader::~FileReader()
 {
 }
-

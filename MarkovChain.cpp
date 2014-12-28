@@ -1,11 +1,6 @@
-#include <map>
 #include <algorithm>
-#include <limits.h>
-#include <sstream>
-#include <iostream>
 #include "MarkovChain.h"
 #include "StateRange.h"
-#include "Util.h"
 
 MarkovChain::MarkovChain(int markovOrder) :
 m_markovOrder(markovOrder)
@@ -97,4 +92,3 @@ std::vector<unsigned> MarkovChain::GetAccumulatedFrequencies()
 MarkovChain::~MarkovChain()
 {
 }
-

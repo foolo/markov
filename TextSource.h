@@ -2,9 +2,9 @@
 #define	TEXTSOURCE_H
 
 #include <vector>
-#include "Dictionary.h"
 
 class IFileReader;
+class Dictionary;
 
 class TextSource
 {
@@ -27,4 +27,3 @@ private:
 };
 
 #endif	/* TEXTSOURCE_H */
-

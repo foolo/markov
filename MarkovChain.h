@@ -2,9 +2,8 @@
 #define	MARKOVCHAIN_H
 
 #include <vector>
-#include "Dictionary.h"
 #include "MarkovState.h"
-#include "StateRange.h"
+#include "Types.h"
 
 class StateRange;
 
@@ -31,4 +30,3 @@ public:
 };
 
 #endif	/* MARKOVCHAIN_H */
-

@@ -1,10 +1,9 @@
 #include <string>
 #include <sstream>
-#include <iostream>
+#include <boost/algorithm/string.hpp>
 #include "TextSource.h"
 #include "Dictionary.h"
 #include "IFileReader.h"
-#include <boost/algorithm/string.hpp>
 
 using namespace boost::algorithm;
 
@@ -103,6 +102,7 @@ std::vector<std::string> TextSource::GetTokensInLine(std::string line)
 	return resultTokens;
 }
 
+//TODO move to util
 std::vector<std::string> TextSource::Split(const std::string& s, char delimiter)
 {
 	std::vector<std::string> elements;
@@ -129,4 +129,3 @@ void TextSource::replaceAll(std::string& s, const std::string& oldValue, const s
 TextSource::~TextSource()
 {
 }
-

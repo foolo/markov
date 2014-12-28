@@ -19,4 +19,3 @@ public:
 };
 
 #endif	/* FILEREADER_H */
-

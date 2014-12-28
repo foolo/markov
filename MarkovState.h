@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <string>
-#include "Dictionary.h"
+
+class Dictionary;
 
 class MarkovState
 {
@@ -19,4 +20,3 @@ public:
 };
 
 #endif	/* MARKOVSTATE_H */
-

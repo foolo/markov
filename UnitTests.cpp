@@ -3,6 +3,7 @@
 #include "Util.h"
 #include "TextSource.h"
 #include "StateRange.h"
+#include "Dictionary.h"
 
 void UnitTests::Run()
 {
@@ -361,4 +362,3 @@ void UnitTests::Run()
 	}
 
 }
-

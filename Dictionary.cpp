@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Dictionary.h"
 
 Dictionary::Dictionary()
@@ -35,4 +34,3 @@ std::string Dictionary::SearchWordForId(id_t idToFind)
 Dictionary::~Dictionary()
 {
 }
-
