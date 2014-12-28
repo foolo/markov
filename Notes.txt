@@ -1,0 +1,4 @@
+Riksdagsprotokoll:
+Remove "(Appl"  "Anf."  "§"  from file
+
+	sed -i '/(Appl/d;/Anf./d;/§/d' filename

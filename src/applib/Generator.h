@@ -2,6 +2,7 @@
 #define	GENERATOR_H
 
 #include <vector>
+#include "Types.h"
 
 class MarkovChain;
 class Dictionary;

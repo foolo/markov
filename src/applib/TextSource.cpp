@@ -11,6 +11,8 @@ m_dictionary(dictionary)
 {
 }
 
+//TODO where do the empty words come from?
+
 bool TextSource::LoadText(const std::string& filename)
 {
 	if (!m_fileReader.open(filename))

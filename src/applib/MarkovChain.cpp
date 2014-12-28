@@ -41,6 +41,11 @@ void MarkovChain::ZeroPad(std::vector<id_t>& firstWords)
 
 StateRange MarkovChain::GetRange(std::vector<id_t> firstWords)
 {
+	if (firstWords.empty())
+	{
+		return StateRange(m_stateFrequencies.begin(), m_stateFrequencies.end());
+	}
+
 	// for example  if firstWords == {7, 5, 2}
 	//
 	// firstWordsLower = {7, 5, 2, 0}

@@ -70,6 +70,7 @@ void parseParameters(int argc, char* argv[], std::string& filename, int& count, 
 		std::cout << "Usage: " << argv[0] << " <filename> <number of words to generate> <markov order>" << std::endl;
 		exit(1);
 	}
+	//TODO this does not work on filenames with space in it
 	std::istringstream(args.at(1)) >> filename;
 	std::istringstream(args.at(2)) >> count;
 	std::istringstream(args.at(3)) >> markovOrder;

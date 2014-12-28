@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Generator.h"
 #include "StateRange.h"
 #include "Util.h"
@@ -14,22 +13,27 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 {
 	id_t periodId = dictionary.GetIdForWord(".");
 	std::vector<id_t> result;
-
-	std::vector<id_t> lastN;
-	lastN.push_back(periodId);
 	for (unsigned i = 0; i < count; i++)
 	{
-		// debug
-		//std::cout << "last: " << Util::IdVecToIdAndWords(lastN, dictionary) << std::endl;
+		std::vector<id_t> prefixIds;
+		if (result.empty())
+		{
+			std::vector<id_t> fakeResult;
+			fakeResult.push_back(periodId);
+			prefixIds = GetLastN(fakeResult);
+		}
+		else
+		{
+			prefixIds = GetLastN(result);
+		}
 
 		//TODO handle if GetRange size is 0. Might happen if there is no "." in the dictionary, or some encoding problem, so dictionary.GetIdForWord(".") does not find anything.
-		StateRange probabilityRange = m_markovChain.GetRange(lastN);
+		StateRange probabilityRange = m_markovChain.GetRange(prefixIds);
 		freq_t totalFreq = probabilityRange.GetTotalFrequency();
 		freq_t p = rand() % totalFreq;
 		MarkovState state = probabilityRange.GetStateAtProbability(p);
 
-
-		id_t lastRelevantId = lastN.size();
+		id_t lastRelevantId = prefixIds.size();
 		// Normally lastRelevantId is equal to (m_markovChain.GetOrder() - 1)
 		// which means that state.GetIds(lastRelevantId) should be the same as 
 		// state.GetIds().back(), i.e. all ids are relevant.
@@ -38,11 +42,6 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 
 		id_t newWordId = state.GetIds().at(lastRelevantId);
 		result.push_back(newWordId);
-
-		lastN = GetLastN(result);
-
-		// debug:
-		//std::cout << ":"<< newWordId << std::endl;
 	}
 	return result;
 }

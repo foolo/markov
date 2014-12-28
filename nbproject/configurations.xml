@@ -27,6 +27,7 @@
       <itemPath>.gitignore</itemPath>
       <itemPath>CMakeLists.txt</itemPath>
       <itemPath>hostbuild/Makefile</itemPath>
+      <itemPath>Notes.txt</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>

@@ -87,7 +87,7 @@ void TextRenderer::HandleWord(std::string word)
 
 void TextRenderer::Render(const std::vector<id_t>& ids, Dictionary& dictionary)
 {
-	std::cout << "Renderign" << ids.size() << std::endl;
+	std::cout << "Rendering " << ids.size() << std::endl;
 	for (auto pId = ids.begin(); pId != ids.end(); pId++)
 	{
 		std::string newWord = dictionary.SearchWordForId(*pId);
