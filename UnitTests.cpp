@@ -324,20 +324,6 @@ void UnitTests::Run()
 		CHECK(ids.at(i++), 6); // .
 	}
 
-	// Test TextSource::Split
-	{
-		std::vector<std::string> result = TextSource::Split("test  split a string.that, is amazing", ' ');
-		CHECK(result.size(), 7);
-		int i = 0;
-		CHECK(result.at(i++), "test");
-		CHECK(result.at(i++), "");
-		CHECK(result.at(i++), "split");
-		CHECK(result.at(i++), "a");
-		CHECK(result.at(i++), "string.that,");
-		CHECK(result.at(i++), "is");
-		CHECK(result.at(i++), "amazing");
-	}
-
 	// Test TextSource::GetTokensInLine
 	{
 		std::vector<std::string> result = TextSource::GetTokensInLine("test  split a string.that, is amazing");

@@ -1,11 +1,8 @@
 #include <string>
-#include <sstream>
 #include <boost/algorithm/string.hpp>
 #include "TextSource.h"
 #include "Dictionary.h"
 #include "IFileReader.h"
-
-using namespace boost::algorithm;
 
 TextSource::TextSource(IFileReader& fileReader, Dictionary& dictionary) :
 m_fileReader(fileReader),
@@ -62,7 +59,7 @@ bool TextSource::LoadText(const std::string& filename)
 		std::vector<std::string> words = GetTokensInLine(line);
 		for (auto pWord = words.begin(); pWord != words.end(); pWord++)
 		{
-			trim(*pWord);
+			boost::algorithm::trim(*pWord);
 			*pWord = ToUpperUtf8(*pWord);
 			id_t id = m_dictionary.GetIdForWord(*pWord);
 			m_wordIds.push_back(id);
@@ -90,7 +87,9 @@ std::vector<std::string> TextSource::GetTokensInLine(std::string line)
 	{
 		surroundWithSpaces(line, *pC);
 	}
-	std::vector<std::string> splitStrings = Split(line, ' ');
+	std::vector<std::string> splitStrings;
+	boost::split(splitStrings, line, boost::is_any_of(" "));
+
 	std::vector<std::string> resultTokens;
 	for (auto pWord = splitStrings.begin(); pWord != splitStrings.end(); pWord++)
 	{
@@ -100,19 +99,6 @@ std::vector<std::string> TextSource::GetTokensInLine(std::string line)
 		}
 	}
 	return resultTokens;
-}
-
-//TODO move to util
-std::vector<std::string> TextSource::Split(const std::string& s, char delimiter)
-{
-	std::vector<std::string> elements;
-	std::stringstream ss(s);
-	std::string item;
-	while (std::getline(ss, item, delimiter))
-	{
-		elements.push_back(item);
-	}
-	return elements;
 }
 
 void TextSource::replaceAll(std::string& s, const std::string& oldValue, const std::string& newValue)
