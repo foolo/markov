@@ -7,6 +7,7 @@
 #include "FileReader.h"
 #include "Generator.h"
 #include "Dictionary.h"
+#include "TextRenderer.h"
 
 void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& filename)
 {
@@ -81,13 +82,20 @@ int main(int argc, char* argv[])
 	int count;
 	parseParameters(argc, argv, filename, count);
 
+	std::cout << "Loading " << filename << std::endl;
+
 	Dictionary dictionary;
 	MarkovChain markovChain(3);
 	load(markovChain, dictionary, filename);
 
 	ShowTop(markovChain, dictionary);
 
+	std::cout << "Generating " << count << " words..." << std::endl;
+
 	Generator generator(markovChain);
-	generator.Generate(count, dictionary);
+	std::vector<id_t> wordIds = generator.Generate(count, dictionary);
+
+	TextRenderer textRenderer;
+	textRenderer.Render(wordIds, dictionary);
 	return 0;
 }

@@ -12,13 +12,9 @@ m_markovChain(markovChain)
 
 std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 {
-	std::string resultStr;
-	std::vector<unsigned> accFreq = m_markovChain.GetAccumulatedFrequencies();
 	id_t periodId = dictionary.GetIdForWord(".");
 	std::vector<id_t> result;
 	result.push_back(periodId);
-
-	std::cout << "Starting generator" << std::endl;
 
 	for (unsigned i = 0; i < count; i++)
 	{
@@ -43,21 +39,10 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 
 		id_t newWordId = state.GetIds().at(lastRelevantId);
 		result.push_back(newWordId);
-		std::string newWord = dictionary.SearchWordForId(newWordId);
-
-
-		resultStr += newWord + " ";
-
-		if (newWord == ".")
-		{
-			resultStr += "\n";
-		}
 
 		// debug:
-		//std::cout << ":"<< newWord << std::endl;
+		//std::cout << ":"<< newWordId << std::endl;
 	}
-
-	std::cout << "RESULT:" << std::endl << resultStr << std::endl;
 	return result;
 }
 

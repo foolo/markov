@@ -24,7 +24,7 @@ public:
 	StateRange GetRange(std::vector<id_t> firstWords);
 	int GetOrder();
 	size_t GetSize();
-	std::vector<unsigned> GetAccumulatedFrequencies();
+	std::vector<unsigned> GetAccumulatedFrequencies(); //TODO needed?
 	virtual ~MarkovChain();
 
 };
