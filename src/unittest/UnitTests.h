@@ -21,6 +21,9 @@ public:
 	{
 		m_lines.push("det var en gang,"); // 0 1 2 3 4
 		m_lines.push("en flicka. hon hette"); // 2 5 6 5 6
+		m_lines.push("");
+		m_lines.push("");
+		m_lines.push("");
 		m_lines.push("vad, hon hette."); // 7 4 5 6 4
 		return true;
 	}

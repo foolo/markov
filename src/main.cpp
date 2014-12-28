@@ -58,20 +58,21 @@ void initLocale(int category, const std::string& locStr)
 	}
 }
 
-void parseParameters(int argc, char* argv[], std::string& filename, int& count)
+void parseParameters(int argc, char* argv[], std::string& filename, int& count, int& markovOrder)
 {
 	std::vector<std::string> args;
 	for (int i = 0; i < argc; i++)
 	{
 		args.push_back(argv[i]);
 	}
-	if (argc < 3)
+	if (argc < 4)
 	{
-		std::cout << "Usage: " << argv[0] << " <filename> <number of words to generate>" << std::endl;
+		std::cout << "Usage: " << argv[0] << " <filename> <number of words to generate> <markov order>" << std::endl;
 		exit(1);
 	}
 	std::istringstream(args.at(1)) >> filename;
 	std::istringstream(args.at(2)) >> count;
+	std::istringstream(args.at(3)) >> markovOrder;
 }
 
 int main(int argc, char* argv[])
@@ -79,13 +80,14 @@ int main(int argc, char* argv[])
 	initLocale(LC_ALL, "en_US.utf8");
 
 	std::string filename;
-	int count;
-	parseParameters(argc, argv, filename, count);
+	int count = 0;
+	int markovOrder = 0;
+	parseParameters(argc, argv, filename, count, markovOrder);
 
 	std::cout << "Loading " << filename << std::endl;
 
 	Dictionary dictionary;
-	MarkovChain markovChain(3);
+	MarkovChain markovChain(markovOrder);
 	load(markovChain, dictionary, filename);
 
 	ShowTop(markovChain, dictionary);
