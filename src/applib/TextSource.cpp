@@ -11,8 +11,6 @@ m_dictionary(dictionary)
 {
 }
 
-//TODO where do the empty words come from?
-
 bool TextSource::LoadText(const std::string& filename)
 {
 	if (!m_fileReader.open(filename))
@@ -28,6 +26,10 @@ bool TextSource::LoadText(const std::string& filename)
 		{
 			boost::algorithm::trim(*pWord);
 			*pWord = Util::ToLowerUtf8(*pWord);
+			if (pWord->empty())
+			{
+				continue;
+			}
 			id_t id = m_dictionary.GetIdForWord(*pWord);
 			m_wordIds.push_back(id);
 		}
