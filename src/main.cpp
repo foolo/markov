@@ -4,7 +4,6 @@
 #include "MarkovChain.h"
 #include "FileReader.h"
 #include "Generator.h"
-#include "UnitTests.h"
 #include "Dictionary.h"
 
 void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& filename)
@@ -60,16 +59,7 @@ int main(int argc, char* argv[])
 {
 	if (argc < 2)
 	{
-		try
-		{
-			UnitTests::Run();
-		}
-		catch (const char *err)
-		{
-			std::string errStr(err);
-			std::cout << "CAUGTH: " << errStr << std::endl;
-		}
-		std::cout << "TESTS PASSED" << std::endl;
+		std::cout << "Usage: " << argv[0] << " <filename>" << std::endl;
 		return 0;
 	}
 

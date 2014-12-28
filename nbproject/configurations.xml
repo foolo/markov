@@ -2,15 +2,20 @@
 <configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="src" name="0">
-      <in>Dictionary.cpp</in>
-      <in>FileReader.cpp</in>
-      <in>Generator.cpp</in>
-      <in>MarkovChain.cpp</in>
-      <in>MarkovState.cpp</in>
-      <in>StateRange.cpp</in>
-      <in>TextSource.cpp</in>
-      <in>UnitTests.cpp</in>
-      <in>Util.cpp</in>
+      <df name="applib">
+        <in>Dictionary.cpp</in>
+        <in>FileReader.cpp</in>
+        <in>Generator.cpp</in>
+        <in>MarkovChain.cpp</in>
+        <in>MarkovState.cpp</in>
+        <in>StateRange.cpp</in>
+        <in>TextSource.cpp</in>
+        <in>Util.cpp</in>
+      </df>
+      <df name="unittest">
+        <in>UnitTests.cpp</in>
+        <in>unittestmain.cpp</in>
+      </df>
       <in>main.cpp</in>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -48,49 +53,75 @@
           <ccTool>
             <incDir>
               <pElem>src</pElem>
-              <pElem>hostbuild</pElem>
             </incDir>
           </ccTool>
         </makeTool>
       </makefileType>
-      <item path="src/Dictionary.cpp" ex="false" tool="1" flavor2="8">
+      <folder path="0/applib">
+        <ccTool>
+          <incDir>
+            <pElem>src/applib</pElem>
+            <pElem>hostbuild</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="0/unittest">
+        <ccTool>
+          <incDir>
+            <pElem>src/applib</pElem>
+            <pElem>hostbuild</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <item path="src/applib/Dictionary.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/FileReader.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/applib/FileReader.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/Generator.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/applib/Generator.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/MarkovChain.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/applib/MarkovChain.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/MarkovState.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/applib/MarkovState.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/StateRange.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/applib/StateRange.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/TextSource.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/applib/TextSource.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/UnitTests.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
-      <item path="src/Util.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/applib/Util.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
+          <incDir>
+            <pElem>src/applib</pElem>
+            <pElem>hostbuild</pElem>
+          </incDir>
+        </ccTool>
+      </item>
+      <item path="src/unittest/UnitTests.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/unittest/unittestmain.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>hostbuild</pElem>
+          </incDir>
         </ccTool>
       </item>
     </conf>
