@@ -14,12 +14,11 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 {
 	id_t periodId = dictionary.GetIdForWord(".");
 	std::vector<id_t> result;
-	result.push_back(periodId);
 
+	std::vector<id_t> lastN;
+	lastN.push_back(periodId);
 	for (unsigned i = 0; i < count; i++)
 	{
-		std::vector<id_t> lastN = GetLastN(result);
-
 		// debug
 		//std::cout << "last: " << Util::IdVecToIdAndWords(lastN, dictionary) << std::endl;
 
@@ -39,6 +38,8 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 
 		id_t newWordId = state.GetIds().at(lastRelevantId);
 		result.push_back(newWordId);
+
+		lastN = GetLastN(result);
 
 		// debug:
 		//std::cout << ":"<< newWordId << std::endl;
