@@ -1,5 +1,6 @@
 #include <iostream>
 #include "TextRenderer.h"
+#include "Util.h"
 
 TextRenderer::TextRenderer() :
 m_textState(inital_state)
@@ -8,10 +9,10 @@ m_textState(inital_state)
 
 bool TextRenderer::IsDelimiter(const std::string s)
 {
-	return (s == ".") || (s == ",") || (s == "!") || (s == "?");
+	return (s == ".") || (s == "!") || (s == "?");
 }
 
-void TextRenderer::HandleWord(const std::string& word)
+void TextRenderer::HandleWord(std::string word)
 {
 	bool useUpper = false;
 	TextState newState = m_textState;
@@ -20,6 +21,10 @@ void TextRenderer::HandleWord(const std::string& word)
 		if (IsDelimiter(word))
 		{
 			newState = sentence_ended;
+		}
+		else if (word == ",")
+		{
+			newState = sentence_pause;
 		}
 		else
 		{
@@ -33,9 +38,29 @@ void TextRenderer::HandleWord(const std::string& word)
 		{
 			newState = sentence_ended;
 		}
+		else if (word == ",")
+		{
+			newState = sentence_pause;
+		}
 		else
 		{
 			std::cout << " ";
+		}
+	}
+	else if (m_textState == sentence_pause)
+	{
+		if (!IsDelimiter(word))
+		{
+			std::cout << " ";
+			newState = middle_of_sentence;
+		}
+		else if (word == ",")
+		{
+			newState = sentence_pause;
+		}
+		else
+		{
+			newState = sentence_ended;
 		}
 	}
 	else // m_textState == sentence_ended
@@ -46,8 +71,17 @@ void TextRenderer::HandleWord(const std::string& word)
 			useUpper = true;
 			newState = middle_of_sentence;
 		}
+		else if (word == ",")
+		{
+			newState = sentence_pause;
+		}
 	}
 	m_textState = newState;
+	if (useUpper)
+	{
+		word = Util::Capitalize(word);
+	}
+
 	std::cout << word;
 }
 

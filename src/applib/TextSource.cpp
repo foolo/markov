@@ -3,47 +3,12 @@
 #include "TextSource.h"
 #include "Dictionary.h"
 #include "IFileReader.h"
+#include "Util.h"
 
 TextSource::TextSource(IFileReader& fileReader, Dictionary& dictionary) :
 m_fileReader(fileReader),
 m_dictionary(dictionary)
 {
-}
-
-std::wstring MultibyteToWideString(const char* ptr)
-{
-	std::wstring s;
-	std::mbtowc(NULL, 0, 0); // reset the conversion state
-	const char* end = ptr + std::strlen(ptr);
-	int ret;
-	for (wchar_t wc; (ret = std::mbtowc(&wc, ptr, end - ptr)) > 0; ptr += ret)
-	{
-		s.push_back(wc);
-	}
-	return s;
-}
-
-std::string WideStringToMultibyte(const std::wstring& wstr)
-{
-	std::string s;
-	std::mbstate_t state = std::mbstate_t();
-	for (wchar_t wc : wstr)
-	{
-		std::string mb(MB_CUR_MAX, '\0');
-		std::wcrtomb(&mb[0], wc, &state);
-		s.append(mb.c_str());
-	}
-	return s;
-}
-
-std::string ToUpperUtf8(std::string& s)
-{
-	std::wstring wideStr = MultibyteToWideString(s.c_str());
-	for (auto it = wideStr.begin(); it != wideStr.end(); it++)
-	{
-		*it = towupper(*it);
-	}
-	return WideStringToMultibyte(wideStr);
 }
 
 bool TextSource::LoadText(const std::string& filename)
@@ -60,7 +25,7 @@ bool TextSource::LoadText(const std::string& filename)
 		for (auto pWord = words.begin(); pWord != words.end(); pWord++)
 		{
 			boost::algorithm::trim(*pWord);
-			*pWord = ToUpperUtf8(*pWord);
+			*pWord = Util::ToLowerUtf8(*pWord);
 			id_t id = m_dictionary.GetIdForWord(*pWord);
 			m_wordIds.push_back(id);
 		}

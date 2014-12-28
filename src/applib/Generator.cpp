@@ -22,7 +22,7 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 		// debug
 		//std::cout << "last: " << Util::IdVecToIdAndWords(lastN, dictionary) << std::endl;
 
-		//TODO handle if GetRange size is 0
+		//TODO handle if GetRange size is 0. Might happen if there is no "." in the dictionary, or some encoding problem, so dictionary.GetIdForWord(".") does not find anything.
 		StateRange probabilityRange = m_markovChain.GetRange(lastN);
 		freq_t totalFreq = probabilityRange.GetTotalFrequency();
 		freq_t p = rand() % totalFreq;

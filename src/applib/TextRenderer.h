@@ -18,7 +18,7 @@ public:
 
 private:
 	bool IsDelimiter(const std::string s);
-	void HandleWord(const std::string& word);
+	void HandleWord(std::string word);
 };
 
 #endif	/* TEXTRENDERER_H */
