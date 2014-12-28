@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <iterator>
 #include "TextSource.h"
 #include "MarkovChain.h"
@@ -55,25 +57,37 @@ void initLocale(int category, const std::string& locStr)
 	}
 }
 
+void parseParameters(int argc, char* argv[], std::string& filename, int& count)
+{
+	std::vector<std::string> args;
+	for (int i = 0; i < argc; i++)
+	{
+		args.push_back(argv[i]);
+	}
+	if (argc < 3)
+	{
+		std::cout << "Usage: " << argv[0] << " <filename> <number of words to generate>" << std::endl;
+		exit(1);
+	}
+	std::istringstream(args.at(1)) >> filename;
+	std::istringstream(args.at(2)) >> count;
+}
+
 int main(int argc, char* argv[])
 {
-	if (argc < 2)
-	{
-		std::cout << "Usage: " << argv[0] << " <filename>" << std::endl;
-		return 0;
-	}
-
 	initLocale(LC_ALL, "en_US.utf8");
 
-	std::string filename(argv[1]);
+	std::string filename;
+	int count;
+	parseParameters(argc, argv, filename, count);
+
 	Dictionary dictionary;
 	MarkovChain markovChain(3);
-
 	load(markovChain, dictionary, filename);
 
 	ShowTop(markovChain, dictionary);
 
 	Generator generator(markovChain);
-	generator.Generate(500, dictionary);
+	generator.Generate(count, dictionary);
 	return 0;
 }
