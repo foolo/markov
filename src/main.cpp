@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	initLocale(LC_ALL, "sv_SE.utf8");
+	initLocale(LC_ALL, "en_US.utf8");
 
 	std::string filename(argv[1]);
 	Dictionary dictionary;
