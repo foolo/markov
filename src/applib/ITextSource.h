@@ -3,11 +3,11 @@
 
 #include <string>
 
-class IFileReader
+class ITextSource
 {
 public:
 
-	virtual ~IFileReader()
+	virtual ~ITextSource()
 	{
 	};
 	virtual bool open(const std::string& filename) = 0;

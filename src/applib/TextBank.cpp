@@ -2,10 +2,10 @@
 #include <boost/algorithm/string.hpp>
 #include "TextBank.h"
 #include "Dictionary.h"
-#include "IFileReader.h"
+#include "ITextSource.h"
 #include "Util.h"
 
-TextBank::TextBank(IFileReader& fileReader, Dictionary& dictionary) :
+TextBank::TextBank(ITextSource& fileReader, Dictionary& dictionary) :
 m_fileReader(fileReader),
 m_dictionary(dictionary)
 {

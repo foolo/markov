@@ -2,9 +2,9 @@
 #define	FILEREADER_H
 
 #include <fstream>
-#include "IFileReader.h"
+#include "ITextSource.h"
 
-class FileReader : public IFileReader
+class FileReader : public ITextSource
 {
 private:
 	std::ifstream m_ifstream;

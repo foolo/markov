@@ -3,18 +3,18 @@
 
 #include <vector>
 
-class IFileReader;
+class ITextSource;
 class Dictionary;
 
 class TextBank
 {
 private:
 	std::vector<id_t> m_wordIds;
-	IFileReader& m_fileReader;
+	ITextSource& m_fileReader;
 	Dictionary& m_dictionary;
 
 public:
-	TextBank(IFileReader& fileReader, Dictionary& dictionary);
+	TextBank(ITextSource& fileReader, Dictionary& dictionary);
 	bool LoadText(const std::string& filename);
 	std::vector<id_t>& GetWordIds();
 	static std::vector<std::string> GetTokensInLine(std::string line);

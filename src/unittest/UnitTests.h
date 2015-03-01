@@ -3,7 +3,7 @@
 
 #include <queue>
 #include <iostream>
-#include "IFileReader.h"
+#include "ITextSource.h"
 
 #define CHECK(A,B) \
 	if ((A) != (B)) { \
@@ -12,7 +12,7 @@
 		exit(1); \
 	}
 
-class FileReaderMock : public IFileReader
+class FileReaderMock : public ITextSource
 {
 public:
 	std::queue<std::string> m_lines;
