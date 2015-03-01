@@ -9,9 +9,9 @@
         <in>MarkovChain.cpp</in>
         <in>MarkovState.cpp</in>
         <in>StateRange.cpp</in>
+        <in>TextBank.cpp</in>
         <in>TextRenderer.cpp</in>
         <in>TextRenderer.h</in>
-        <in>TextSource.cpp</in>
         <in>Util.cpp</in>
       </df>
       <df name="unittest">
@@ -77,40 +77,24 @@
         </ccTool>
       </folder>
       <item path="src/applib/Dictionary.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="src/applib/FileReader.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="src/applib/Generator.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="src/applib/MarkovChain.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="src/applib/MarkovState.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="src/applib/StateRange.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
+      </item>
+      <item path="src/applib/TextBank.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/applib/TextRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/applib/TextRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/applib/TextSource.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
       <item path="src/applib/Util.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
@@ -121,8 +105,6 @@
         </ccTool>
       </item>
       <item path="src/unittest/UnitTests.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
       </item>
       <item path="src/unittest/unittestmain.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">

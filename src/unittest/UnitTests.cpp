@@ -1,7 +1,7 @@
 #include "UnitTests.h"
 #include "MarkovChain.h"
 #include "Util.h"
-#include "TextSource.h"
+#include "TextBank.h"
 #include "StateRange.h"
 #include "Dictionary.h"
 
@@ -299,7 +299,7 @@ void UnitTests::Run()
 	{
 		Dictionary dictionary;
 		FileReaderMock mockFileReader;
-		TextSource textSource(mockFileReader, dictionary);
+		TextBank textSource(mockFileReader, dictionary);
 		textSource.LoadText("");
 		auto ids = textSource.GetWordIds();
 		int i = 0;
@@ -326,7 +326,7 @@ void UnitTests::Run()
 
 	// Test TextSource::GetTokensInLine
 	{
-		std::vector<std::string> result = TextSource::GetTokensInLine("test  split a string.that, is amazing");
+		std::vector<std::string> result = TextBank::GetTokensInLine("test  split a string.that, is amazing");
 		CHECK(result.size(), 9);
 		int i = 0;
 		CHECK(result.at(i++), "test");
@@ -343,7 +343,7 @@ void UnitTests::Run()
 	// Test TextSource::replaceAll
 	{
 		std::string s = "what is this ";
-		TextSource::replaceAll(s, "i", "siri");
+		TextBank::replaceAll(s, "i", "siri");
 		CHECK(s, "what siris thsiris ");
 	}
 

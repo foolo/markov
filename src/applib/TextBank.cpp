@@ -1,17 +1,17 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
-#include "TextSource.h"
+#include "TextBank.h"
 #include "Dictionary.h"
 #include "IFileReader.h"
 #include "Util.h"
 
-TextSource::TextSource(IFileReader& fileReader, Dictionary& dictionary) :
+TextBank::TextBank(IFileReader& fileReader, Dictionary& dictionary) :
 m_fileReader(fileReader),
 m_dictionary(dictionary)
 {
 }
 
-bool TextSource::LoadText(const std::string& filename)
+bool TextBank::LoadText(const std::string& filename)
 {
 	if (!m_fileReader.open(filename))
 	{
@@ -37,19 +37,19 @@ bool TextSource::LoadText(const std::string& filename)
 	return true;
 }
 
-std::vector<id_t>& TextSource::GetWordIds()
+std::vector<id_t>& TextBank::GetWordIds()
 {
 	return m_wordIds;
 }
 
-void TextSource::surroundWithSpaces(std::string& s, char c)
+void TextBank::surroundWithSpaces(std::string& s, char c)
 {
 	std::string oldString(1, c);
 	std::string newString = std::string(" ") + oldString + " ";
 	replaceAll(s, oldString, newString);
 }
 
-std::vector<std::string> TextSource::GetTokensInLine(std::string line)
+std::vector<std::string> TextBank::GetTokensInLine(std::string line)
 {
 	std::string specialCharacters(".,!\"%&/()=?£$+'");
 	for (auto pC = specialCharacters.begin(); pC != specialCharacters.end(); pC++)
@@ -70,7 +70,7 @@ std::vector<std::string> TextSource::GetTokensInLine(std::string line)
 	return resultTokens;
 }
 
-void TextSource::replaceAll(std::string& s, const std::string& oldValue, const std::string& newValue)
+void TextBank::replaceAll(std::string& s, const std::string& oldValue, const std::string& newValue)
 {
 	for (size_t pos = 0;; pos += newValue.length())
 	{
@@ -81,6 +81,6 @@ void TextSource::replaceAll(std::string& s, const std::string& oldValue, const s
 	}
 }
 
-TextSource::~TextSource()
+TextBank::~TextBank()
 {
 }

@@ -2,7 +2,7 @@
 #include <sstream>
 #include <string>
 #include <iterator>
-#include "TextSource.h"
+#include "TextBank.h"
 #include "MarkovChain.h"
 #include "FileReader.h"
 #include "Generator.h"
@@ -12,7 +12,7 @@
 void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& filename)
 {
 	FileReader fileReader;
-	TextSource textSource(fileReader, dictionary);
+	TextBank textSource(fileReader, dictionary);
 	if (!textSource.LoadText(filename))
 	{
 		std::cerr << "load failed: " << filename << std::endl;
