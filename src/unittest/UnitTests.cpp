@@ -4,6 +4,7 @@
 #include "TextBank.h"
 #include "StateRange.h"
 #include "Dictionary.h"
+#include "FileReader.h"
 
 void UnitTests::Run()
 {
@@ -295,7 +296,7 @@ void UnitTests::Run()
 		CHECK(MarkovState(std::vector<id_t>({8, 3, 3})) < MarkovState(std::vector<id_t>({8, 2, 4})), false)
 	}
 
-	// Test TextSource::LoadText
+	// Test TextBank::LoadText
 	{
 		Dictionary dictionary;
 		FileReaderMock mockFileReader;
@@ -324,9 +325,9 @@ void UnitTests::Run()
 		CHECK(ids.at(i++), 6); // .
 	}
 
-	// Test TextSource::GetTokensInLine
+	// Test FileReader::GetTokensInLine
 	{
-		std::vector<std::string> result = TextBank::GetTokensInLine("test  split a string.that, is amazing");
+		std::vector<std::string> result = FileReader::GetTokensInLine("test  split a string.that, is amazing");
 		CHECK(result.size(), 9);
 		int i = 0;
 		CHECK(result.at(i++), "test");
@@ -340,10 +341,10 @@ void UnitTests::Run()
 		CHECK(result.at(i++), "amazing");
 	}
 
-	// Test TextSource::replaceAll
+	// Test FileReader::replaceAll
 	{
 		std::string s = "what is this ";
-		TextBank::replaceAll(s, "i", "siri");
+		FileReader::replaceAll(s, "i", "siri");
 		CHECK(s, "what siris thsiris ");
 	}
 

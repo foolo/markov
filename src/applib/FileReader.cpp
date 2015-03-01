@@ -1,11 +1,8 @@
+#include <boost/algorithm/string.hpp>
 #include "FileReader.h"
 
-FileReader::FileReader()
-{
-}
-
-FileReader::FileReader(const std::string& filename) :
-m_ifstream(filename.c_str())
+FileReader::FileReader() :
+m_currentWordInLine(m_currentLine.end())
 {
 }
 
@@ -21,9 +18,60 @@ bool FileReader::is_open()
 	return m_ifstream.is_open();
 }
 
-bool FileReader::read_line(std::string& lineOut)
+bool FileReader::read_word(std::string& wordOut)
 {
-	return getline(m_ifstream, lineOut);
+	if (m_currentWordInLine == m_currentLine.end())
+	{
+		std::string line;
+		bool readRes = getline(m_ifstream, line);
+		if (!readRes)
+		{
+			return false;
+		}
+		m_currentLine = GetTokensInLine(line);
+		m_currentWordInLine = m_currentLine.begin();
+	}
+	wordOut = *(m_currentWordInLine++);
+	return true;
+}
+
+std::vector<std::string> FileReader::GetTokensInLine(std::string line)
+{
+	std::string specialCharacters(".,!\"%&/()=?£$+'");
+	for (auto pC = specialCharacters.begin(); pC != specialCharacters.end(); pC++)
+	{
+		surroundWithSpaces(line, *pC);
+	}
+	std::vector<std::string> splitStrings;
+	boost::split(splitStrings, line, boost::is_any_of(" "));
+
+	std::vector<std::string> resultTokens;
+	for (auto pWord = splitStrings.begin(); pWord != splitStrings.end(); pWord++)
+	{
+		if (!pWord->empty())
+		{
+			resultTokens.push_back(*pWord);
+		}
+	}
+	return resultTokens;
+}
+
+void FileReader::surroundWithSpaces(std::string& s, char c)
+{
+	std::string oldString(1, c);
+	std::string newString = std::string(" ") + oldString + " ";
+	replaceAll(s, oldString, newString);
+}
+
+void FileReader::replaceAll(std::string& s, const std::string& oldValue, const std::string& newValue)
+{
+	for (size_t pos = 0;; pos += newValue.length())
+	{
+		pos = s.find(oldValue, pos);
+		if (pos == std::string::npos) break;
+		s.erase(pos, oldValue.length());
+		s.insert(pos, newValue);
+	}
 }
 
 FileReader::~FileReader()

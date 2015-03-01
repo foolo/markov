@@ -18,21 +18,17 @@ bool TextBank::LoadText(const std::string& filename)
 		return false;
 	}
 
-	std::string line;
-	while (m_fileReader.read_line(line))
+	std::string word;
+	while (m_fileReader.read_word(word))
 	{
-		std::vector<std::string> words = GetTokensInLine(line);
-		for (auto pWord = words.begin(); pWord != words.end(); pWord++)
+		boost::algorithm::trim(word);
+		word = Util::ToLowerUtf8(word);
+		if (word.empty())
 		{
-			boost::algorithm::trim(*pWord);
-			*pWord = Util::ToLowerUtf8(*pWord);
-			if (pWord->empty())
-			{
-				continue;
-			}
-			id_t id = m_dictionary.GetIdForWord(*pWord);
-			m_wordIds.push_back(id);
+			continue;
 		}
+		id_t id = m_dictionary.GetIdForWord(word);
+		m_wordIds.push_back(id);
 	}
 	return true;
 }
@@ -40,45 +36,6 @@ bool TextBank::LoadText(const std::string& filename)
 std::vector<id_t>& TextBank::GetWordIds()
 {
 	return m_wordIds;
-}
-
-void TextBank::surroundWithSpaces(std::string& s, char c)
-{
-	std::string oldString(1, c);
-	std::string newString = std::string(" ") + oldString + " ";
-	replaceAll(s, oldString, newString);
-}
-
-std::vector<std::string> TextBank::GetTokensInLine(std::string line)
-{
-	std::string specialCharacters(".,!\"%&/()=?£$+'");
-	for (auto pC = specialCharacters.begin(); pC != specialCharacters.end(); pC++)
-	{
-		surroundWithSpaces(line, *pC);
-	}
-	std::vector<std::string> splitStrings;
-	boost::split(splitStrings, line, boost::is_any_of(" "));
-
-	std::vector<std::string> resultTokens;
-	for (auto pWord = splitStrings.begin(); pWord != splitStrings.end(); pWord++)
-	{
-		if (!pWord->empty())
-		{
-			resultTokens.push_back(*pWord);
-		}
-	}
-	return resultTokens;
-}
-
-void TextBank::replaceAll(std::string& s, const std::string& oldValue, const std::string& newValue)
-{
-	for (size_t pos = 0;; pos += newValue.length())
-	{
-		pos = s.find(oldValue, pos);
-		if (pos == std::string::npos) break;
-		s.erase(pos, oldValue.length());
-		s.insert(pos, newValue);
-	}
 }
 
 TextBank::~TextBank()

@@ -17,12 +17,11 @@ public:
 	TextBank(ITextSource& fileReader, Dictionary& dictionary);
 	bool LoadText(const std::string& filename);
 	std::vector<id_t>& GetWordIds();
-	static std::vector<std::string> GetTokensInLine(std::string line);
-	static void replaceAll(std::string &s, const std::string &oldValue, const std::string &newValue);
+
 	virtual ~TextBank();
 
 private:
-	static void surroundWithSpaces(std::string& s, char c);
+
 };
 
 #endif	/* TEXTSOURCE_H */
