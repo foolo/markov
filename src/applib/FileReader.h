@@ -24,6 +24,7 @@ public:
 
 private:
 	static void surroundWithSpaces(std::string& s, char c);
+	static void removeOccurances(std::string& s, char c);
 
 };
 

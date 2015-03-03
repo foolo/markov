@@ -37,11 +37,18 @@ bool FileReader::read_word(std::string& wordOut)
 
 std::vector<std::string> FileReader::GetTokensInLine(std::string line)
 {
-	std::string specialCharacters(".,!\"%&/()=?£$+'");
+	std::string specialCharacters(".,!?");
 	for (auto pC = specialCharacters.begin(); pC != specialCharacters.end(); pC++)
 	{
 		surroundWithSpaces(line, *pC);
 	}
+
+	std::string ignoreCharacters("%&/()[]{}#=;:_|<>*~^£$+'`´\"«»");
+	for (auto pC = ignoreCharacters.begin(); pC != ignoreCharacters.end(); pC++)
+	{
+		removeOccurances(line, *pC);
+	}
+
 	std::vector<std::string> splitStrings;
 	boost::split(splitStrings, line, boost::is_any_of(" "));
 
@@ -60,6 +67,13 @@ void FileReader::surroundWithSpaces(std::string& s, char c)
 {
 	std::string oldString(1, c);
 	std::string newString = std::string(" ") + oldString + " ";
+	replaceAll(s, oldString, newString);
+}
+
+void FileReader::removeOccurances(std::string& s, char c)
+{
+	std::string oldString(1, c);
+	std::string newString = "";
 	replaceAll(s, oldString, newString);
 }
 

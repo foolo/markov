@@ -327,7 +327,7 @@ void UnitTests::Run()
 
 	// Test FileReader::GetTokensInLine
 	{
-		std::vector<std::string> result = FileReader::GetTokensInLine("test  split a string.that, is amazing");
+		std::vector<std::string> result = FileReader::GetTokensInLine("%&/test [ split a« +string.that, is amazing");
 		CHECK(result.size(), 9);
 		int i = 0;
 		CHECK(result.at(i++), "test");
