@@ -22,13 +22,17 @@ bool FileReader::read_word(std::string& wordOut)
 {
 	if (m_currentWordInLine == m_currentLine.end())
 	{
-		std::string line;
-		bool readRes = getline(m_ifstream, line);
-		if (!readRes)
+		m_currentLine.clear();
+		while(m_currentLine.empty())
 		{
-			return false;
+			std::string line;
+			bool readRes = getline(m_ifstream, line);
+			if (!readRes)
+			{
+				return false;
+			}
+			m_currentLine = GetTokensInLine(line);
 		}
-		m_currentLine = GetTokensInLine(line);
 		m_currentWordInLine = m_currentLine.begin();
 	}
 	wordOut = *(m_currentWordInLine++);
