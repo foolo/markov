@@ -18,6 +18,7 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 		std::cerr << "load failed: " << filename << std::endl;
 		exit(1);
 	}
+	std::cout << "Building Markov chain..." << std::endl;
 	for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
 	{
 		std::vector<id_t> stateIds;

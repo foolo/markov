@@ -9,7 +9,9 @@ m_currentWordInLine(m_currentLine.end())
 bool FileReader::open(const std::string& filename)
 {
 	m_ifstream.close();
-	m_ifstream.open(filename.c_str());
+	m_ifstream.open(filename.c_str(), std::ios::ate);
+	m_size = m_ifstream.tellg();
+	m_ifstream.seekg(0, std::ios::beg);
 	return m_ifstream.is_open();
 }
 
@@ -37,6 +39,16 @@ bool FileReader::read_word(std::string& wordOut)
 	}
 	wordOut = *(m_currentWordInLine++);
 	return true;
+}
+
+std::streampos FileReader::get_size()
+{
+	return m_size;
+}
+
+std::streampos FileReader::get_position()
+{
+	return m_ifstream.tellg();
 }
 
 std::vector<std::string> FileReader::GetTokensInLine(std::string line)

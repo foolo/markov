@@ -56,6 +56,16 @@ public:
 		}
 		return false;
 	}
+
+	std::streampos get_size()
+	{
+		return 0;
+	}
+
+	std::streampos get_position()
+	{
+		return 0;
+	}
 };
 
 class UnitTests
