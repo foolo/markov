@@ -28,8 +28,8 @@ bool FileReader::read_word(std::string& wordOut)
 		while(m_currentLine.empty())
 		{
 			std::string line;
-			bool readRes = getline(m_ifstream, line);
-			if (!readRes)
+			std::istream &readRes = getline(m_ifstream, line);
+			if (readRes.fail())
 			{
 				return false;
 			}

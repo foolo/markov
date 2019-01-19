@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <boost/algorithm/string.hpp>
 #include "ITextSource.h"
 #include "TextBank.h"
