@@ -36,6 +36,7 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 
 void ShowTop(MarkovChain& markovChain, Dictionary& dictionary)
 {
+	std::cout << "states by frequency:" << std::endl;
 	int m = 0;
 	StateFreqList_t stateFreqs = markovChain.GetStatesByFrequency();
 	for (auto pStateFreq = stateFreqs.begin(); pStateFreq != stateFreqs.end(); pStateFreq++)
@@ -46,6 +47,16 @@ void ShowTop(MarkovChain& markovChain, Dictionary& dictionary)
 			break;
 		}
 		std::cout << pStateFreq->second << "\t" << pStateFreq->first.DebugToString(dictionary) << std::endl;
+	}
+}
+
+void ShowFirstStates(MarkovChain& markovChain, Dictionary& dictionary)
+{
+	std::cout << "first states:" << std::endl;
+	StateFreqList_t stateFreqs = markovChain.GetFirstStates();
+	for (auto pState = stateFreqs.begin(); pState != stateFreqs.end(); pState++)
+	{
+		std::cout << pState->second << "\t" << pState->first.DebugToString(dictionary) << std::endl;
 	}
 }
 
@@ -93,6 +104,7 @@ int main(int argc, char* argv[])
 	load(markovChain, dictionary, filename);
 
 	ShowTop(markovChain, dictionary);
+	ShowFirstStates(markovChain, dictionary);
 
 	std::cout << "Generating " << count << " words..." << std::endl;
 

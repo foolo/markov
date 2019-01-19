@@ -31,6 +31,20 @@ StateFreqList_t MarkovChain::GetStatesByFrequency()
 	return pairs;
 }
 
+StateFreqList_t MarkovChain::GetFirstStates()
+{
+	int i = 0;
+	StateFreqList_t pairs;
+	for (auto itr = m_stateFrequencies.begin(); itr != m_stateFrequencies.end(); ++itr)
+	{
+		pairs.push_back(*itr);
+		if (i++ > 30) {
+			break;
+		}
+	}
+	return pairs;
+}
+
 void MarkovChain::ZeroPad(std::vector<id_t>& firstWords)
 {
 	while (firstWords.size() < m_markovOrder)

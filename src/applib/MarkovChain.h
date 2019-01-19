@@ -20,6 +20,7 @@ public:
 	void RegisterState(const MarkovState& state);
 	freq_t DebugGetFrequency(const MarkovState& state);
 	StateFreqList_t GetStatesByFrequency();
+	StateFreqList_t GetFirstStates();
 	void ZeroPad(std::vector<id_t>& firstWords);
 	StateRange GetRange(std::vector<id_t> firstWords);
 	int GetOrder();
