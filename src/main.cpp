@@ -8,6 +8,7 @@
 #include "Generator.h"
 #include "Dictionary.h"
 #include "TextRenderer.h"
+#include "util/ParameterParser.h"
 
 void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& filename)
 {
@@ -18,7 +19,7 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 		std::cerr << "load failed: " << filename << std::endl;
 		exit(1);
 	}
-	std::cout << "Building Markov chain..." << std::endl;
+	std::cout << "Building Markov chain of order " << markovChain.GetOrder() << "..." << std::endl;
 	for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
 	{
 		std::vector<id_t> stateIds;
@@ -70,37 +71,15 @@ void initLocale(int category, const std::string& locStr)
 	}
 }
 
-void parseParameters(int argc, char* argv[], std::string& filename, int& count, int& markovOrder, bool &debug)
-{
-	std::vector<std::string> args;
-	for (int i = 0; i < argc; i++)
-	{
-		args.push_back(argv[i]);
-	}
-	if (argc < 4 || argc > 5)
-	{
-		std::cout << "Usage: " << argv[0] << " <filename> <number of words to generate> <markov order> [<debug>]" << std::endl;
-		exit(1);
-	}
-	//TODO this does not work on filenames with space in it
-	std::istringstream(args.at(1)) >> filename;
-	std::istringstream(args.at(2)) >> count;
-	std::istringstream(args.at(3)) >> markovOrder;
-
-	if (argc >= 5) {
-		std::istringstream(args.at(4)) >> debug;
-	}
-}
-
 int main(int argc, char* argv[])
 {
 	initLocale(LC_ALL, "en_US.utf8");
 
-	std::string filename;
-	int count = 0;
-	int markovOrder = 0;
-	bool debug = false;
-	parseParameters(argc, argv, filename, count, markovOrder, debug);
+	ParameterParser params(argc, argv);
+	std::string filename = params.get_string("--text");
+	int count = params.get_int("--count", 10);
+	int markovOrder = params.get_int("--order", 4);
+	bool debug = params.get_int("--debug", 0);
 
 	std::cout << "Loading " << filename << std::endl;
 
