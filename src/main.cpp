@@ -108,8 +108,10 @@ int main(int argc, char* argv[])
 	MarkovChain markovChain(markovOrder);
 	load(markovChain, dictionary, filename);
 
-	ShowTop(markovChain, dictionary);
-	ShowFirstStates(markovChain, dictionary);
+	if (debug) {
+		ShowTop(markovChain, dictionary);
+		ShowFirstStates(markovChain, dictionary);
+	}
 
 	std::cout << "Generating " << count << " words..." << std::endl;
 
