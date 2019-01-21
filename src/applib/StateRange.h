@@ -4,6 +4,7 @@
 #include "Types.h"
 
 class MarkovState;
+class Dictionary;
 
 class StateRange
 {
@@ -16,6 +17,7 @@ public:
 	freq_t GetTotalFrequency();
 	MarkovState GetStateAtProbability(freq_t p);
 	StateFreqMap_t::difference_type Size();
+	void print(Dictionary& dictionary, id_t lastRelevantId);
 };
 
 #endif	/* STATERANGE_H */

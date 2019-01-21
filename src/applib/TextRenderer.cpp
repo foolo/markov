@@ -93,6 +93,7 @@ void TextRenderer::Render(const std::vector<id_t>& ids, Dictionary& dictionary)
 		std::string newWord = dictionary.SearchWordForId(*pId);
 		HandleWord(newWord);
 	}
+	std::cout << std::endl;
 }
 
 TextRenderer::~TextRenderer()

@@ -70,22 +70,26 @@ void initLocale(int category, const std::string& locStr)
 	}
 }
 
-void parseParameters(int argc, char* argv[], std::string& filename, int& count, int& markovOrder)
+void parseParameters(int argc, char* argv[], std::string& filename, int& count, int& markovOrder, bool &debug)
 {
 	std::vector<std::string> args;
 	for (int i = 0; i < argc; i++)
 	{
 		args.push_back(argv[i]);
 	}
-	if (argc < 4)
+	if (argc < 4 || argc > 5)
 	{
-		std::cout << "Usage: " << argv[0] << " <filename> <number of words to generate> <markov order>" << std::endl;
+		std::cout << "Usage: " << argv[0] << " <filename> <number of words to generate> <markov order> [<debug>]" << std::endl;
 		exit(1);
 	}
 	//TODO this does not work on filenames with space in it
 	std::istringstream(args.at(1)) >> filename;
 	std::istringstream(args.at(2)) >> count;
 	std::istringstream(args.at(3)) >> markovOrder;
+
+	if (argc >= 5) {
+		std::istringstream(args.at(4)) >> debug;
+	}
 }
 
 int main(int argc, char* argv[])
@@ -95,7 +99,8 @@ int main(int argc, char* argv[])
 	std::string filename;
 	int count = 0;
 	int markovOrder = 0;
-	parseParameters(argc, argv, filename, count, markovOrder);
+	bool debug = false;
+	parseParameters(argc, argv, filename, count, markovOrder, debug);
 
 	std::cout << "Loading " << filename << std::endl;
 
@@ -109,7 +114,7 @@ int main(int argc, char* argv[])
 	std::cout << "Generating " << count << " words..." << std::endl;
 
 	Generator generator(markovChain);
-	std::vector<id_t> wordIds = generator.Generate(count, dictionary);
+	std::vector<id_t> wordIds = generator.Generate(count, dictionary, debug);
 
 	TextRenderer textRenderer;
 	textRenderer.Render(wordIds, dictionary);

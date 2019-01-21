@@ -3,13 +3,14 @@
 #include "Util.h"
 #include "MarkovChain.h"
 #include "Dictionary.h"
+#include "TextRenderer.h"
 
 Generator::Generator(MarkovChain& markovChain) :
 m_markovChain(markovChain)
 {
 }
 
-std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
+std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary, bool debug)
 {
 	id_t periodId = dictionary.GetIdForWord(".");
 	std::vector<id_t> result;
@@ -34,6 +35,13 @@ std::vector<id_t> Generator::Generate(unsigned count, Dictionary& dictionary)
 		MarkovState state = probabilityRange.GetStateAtProbability(p);
 
 		id_t lastRelevantId = prefixIds.size();
+
+		if (debug) {
+			TextRenderer textRenderer;
+			textRenderer.Render(prefixIds, dictionary);
+			probabilityRange.print(dictionary, lastRelevantId);
+		}
+
 		// Normally lastRelevantId is equal to (m_markovChain.GetOrder() - 1)
 		// which means that state.GetIds(lastRelevantId) should be the same as 
 		// state.GetIds().back(), i.e. all ids are relevant.

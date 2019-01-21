@@ -14,7 +14,7 @@ private:
 
 public:
 	Generator(MarkovChain& markovChain);
-	std::vector<id_t> Generate(unsigned count, Dictionary& dictionary);
+	std::vector<id_t> Generate(unsigned count, Dictionary& dictionary, bool debug);
 	virtual ~Generator();
 private:
 	std::vector<id_t> GetLastN(const std::vector<id_t>& v);
