@@ -76,22 +76,49 @@ int main(int argc, char* argv[])
 	initLocale(LC_ALL, "en_US.utf8");
 
 	ParameterParser params(argc, argv);
-	std::string filename = params.get_string("--text");
-	int count = params.get_int("--count", 10);
-	int markovOrder = params.get_int("--order", 4);
+	std::string text_source_filename = params.get_string("--text", "");
 	bool debug = params.get_int("--debug", 0);
 
-	std::cout << "Loading " << filename << std::endl;
-
+	MarkovChain markovChain(0);
 	Dictionary dictionary;
-	MarkovChain markovChain(markovOrder);
-	load(markovChain, dictionary, filename);
+
+	if (text_source_filename.empty() == false) {
+		std::cout << "Loading text source " << text_source_filename << std::endl;
+
+		int markovOrder = params.get_int("--order", 4);
+		markovChain = MarkovChain(markovOrder);
+		load(markovChain, dictionary, text_source_filename);
+
+		std::string model_output_filename = params.get_string("--save", "");
+
+		if (model_output_filename.empty() == false) {
+			// save to file
+			std::ofstream fs(model_output_filename);
+			if (!fs.is_open()) {
+				std::cout << "could not open " << model_output_filename << std::endl;
+				exit(1);
+			}
+
+			markovChain.serialize(fs);
+			dictionary.serialize(fs);
+			std::cout << "model saved to " << model_output_filename << std::endl;
+			return 0;
+		}
+	}
+	else {
+		std::string model_input_filename = params.get_string("--load");
+		std::cout << "loading model " << model_input_filename << std::endl;
+		std::ifstream fs(model_input_filename);
+		markovChain = MarkovChain::deserialize(fs);
+		dictionary = Dictionary::deserialize(fs);
+	}
 
 	if (debug) {
 		ShowTop(markovChain, dictionary);
 		ShowFirstStates(markovChain, dictionary);
 	}
 
+	int count = params.get_int("--count", 10);
 	std::cout << "Generating " << count << " words..." << std::endl;
 
 	Generator generator(markovChain);
@@ -99,5 +126,6 @@ int main(int argc, char* argv[])
 
 	TextRenderer textRenderer;
 	textRenderer.Render(wordIds, dictionary);
+
 	return 0;
 }

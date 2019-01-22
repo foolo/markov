@@ -4,6 +4,10 @@
     <df root="src" name="0">
       <df name="applib">
         <df name="util">
+          <in>ParameterParser.cpp</in>
+          <in>ParameterParser.h</in>
+          <in>SerializeUtils.cpp</in>
+          <in>SerializeUtils.h</in>
           <in>Timer.cpp</in>
         </df>
         <in>Dictionary.cpp</in>
@@ -89,6 +93,17 @@
       <item path="src/applib/TextRenderer.cpp" ex="false" tool="1" flavor2="4">
       </item>
       <item path="src/applib/Util.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/applib/util/ParameterParser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/applib/util/ParameterParser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/applib/util/SerializeUtils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/applib/util/SerializeUtils.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/applib/util/Timer.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">

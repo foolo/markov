@@ -2,6 +2,7 @@
 #include <iomanip>
 #include "MarkovState.h"
 #include "Dictionary.h"
+#include "util/SerializeUtils.h"
 
 bool MarkovState::operator<(MarkovState rhs) const
 {
@@ -53,9 +54,27 @@ std::string MarkovState::DebugToString(Dictionary &dict) const
 	return ss.str();
 }
 
+void MarkovState::serialize(std::ostream &s) const {
+	s << "ids ";
+	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++) {
+		s << *pId << " ";
+	}
+}
+
+void MarkovState::deserialize(std::istream& s, unsigned order) {
+	SerializeUtils::assert(s, "ids");
+	for (unsigned i = 0; i < order; i++) {
+		id_t id = SerializeUtils::read_unsigned(s);
+		m_ids.push_back(id);
+	}
+}
+
 const std::vector<id_t>& MarkovState::GetIds() const
 {
 	return m_ids;
+}
+
+MarkovState::MarkovState() {
 }
 
 MarkovState::MarkovState(const std::vector<id_t>& ids) :

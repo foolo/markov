@@ -43,6 +43,14 @@ std::string ParameterParser::get_string(const std::string& param_name)
 	return get_param(param_name);
 }
 
+std::string ParameterParser::get_string(const std::string& param_name, const std::string& default_value) {
+	auto res = m_named_params.find(param_name);
+	if (res == m_named_params.end()) {
+		return default_value;
+	}
+	return res->second;
+}
+
 int ParameterParser::get_int(const std::string& param_name, int default_value)
 {
 	auto res = m_named_params.find(param_name);

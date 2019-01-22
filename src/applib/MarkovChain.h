@@ -2,6 +2,8 @@
 #define	MARKOVCHAIN_H
 
 #include <vector>
+#include <ostream>
+#include <istream>
 #include "MarkovState.h"
 #include "Types.h"
 
@@ -27,6 +29,8 @@ public:
 	size_t GetSize();
 	std::vector<unsigned> GetAccumulatedFrequencies(); //TODO needed?
 	virtual ~MarkovChain();
+	void serialize(std::ostream &s);
+	static MarkovChain deserialize(std::istream &s);
 
 };
 

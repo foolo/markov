@@ -1,4 +1,5 @@
 #include "Dictionary.h"
+#include "util/SerializeUtils.h"
 
 Dictionary::Dictionary()
 {
@@ -29,6 +30,29 @@ std::string Dictionary::SearchWordForId(id_t idToFind)
 		}
 	}
 	return "ID NOT FOUND";
+}
+
+void Dictionary::serialize(std::ostream& s)
+{
+	s << "words ";
+	s << m_wordToId.size() << std::endl;
+	for (auto itr = m_wordToId.begin(); itr != m_wordToId.end(); ++itr) {
+		std::string word = itr->first;
+		id_t id = itr->second;
+		s << word << " " << id << std::endl;
+	}
+}
+
+Dictionary Dictionary::deserialize(std::istream& s) {
+	SerializeUtils::assert(s, "words");
+	size_t size = SerializeUtils::read_unsigned_long(s);
+	Dictionary dictionary;
+	for (size_t i = 0; i < size; i++) {
+		std::string word = SerializeUtils::read_string(s);
+		id_t id = SerializeUtils::read_unsigned(s);
+		dictionary.m_wordToId[word] = id;
+	}
+	return dictionary;
 }
 
 Dictionary::~Dictionary()
