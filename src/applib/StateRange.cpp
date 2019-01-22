@@ -2,7 +2,7 @@
 #include "StateRange.h"
 #include "Dictionary.h"
 
-StateRange::StateRange(StateFreqMap_t::iterator start, StateFreqMap_t::iterator end) :
+StateRange::StateRange(std::vector<StateFreq>::iterator start, std::vector<StateFreq>::iterator end) :
 m_stateFreqStart(start), m_stateFreqEnd(end)
 {
 }
@@ -31,7 +31,7 @@ MarkovState StateRange::GetStateAtProbability(freq_t p)
 	throw "Out of range";
 }
 
-StateFreqMap_t::difference_type StateRange::Size()
+std::vector<StateFreq>::difference_type StateRange::Size()
 {
 	return std::distance(m_stateFreqStart, m_stateFreqEnd);
 }

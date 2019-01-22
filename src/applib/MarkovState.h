@@ -25,16 +25,15 @@ public:
 	const std::vector<id_t>& GetIds() const;
 };
 
-struct MarkovStateFreq
+struct StateFreq
 {
 	MarkovState m_state;
 	freq_t m_freq;
 
 public:
-	MarkovStateFreq(const MarkovState &state, freq_t freq);
+	StateFreq(const MarkovState &state, freq_t freq);
 	bool operator<(MarkovState rhs) const;
 };
 
-typedef std::vector<MarkovStateFreq> StateFreqMap_t;
 
 #endif	/* MARKOVSTATE_H */

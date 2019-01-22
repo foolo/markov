@@ -18,7 +18,7 @@ StateFreqList_t MarkovChain::GetStatesByFrequency()
 		pairs.push_back(*itr);
 	}
 
-	std::sort(pairs.begin(), pairs.end(), [ = ](const MarkovStateFreq& a, const MarkovStateFreq& b){
+	std::sort(pairs.begin(), pairs.end(), [ = ](const StateFreq& a, const StateFreq& b){
 		return a.m_freq > b.m_freq;
 	});
 	return pairs;
@@ -68,8 +68,8 @@ StateRange MarkovChain::GetRange(std::vector<id_t> firstWords)
 	MarkovState lowerState(firstWordsLower);
 	MarkovState upperState(firstWordsUpper);
 
-	StateFreqMap_t::iterator start = std::lower_bound(m_stateFrequencies.begin(), m_stateFrequencies.end(), lowerState);
-	StateFreqMap_t::iterator end = std::lower_bound(m_stateFrequencies.begin(), m_stateFrequencies.end(), upperState);
+	std::vector<StateFreq>::iterator start = std::lower_bound(m_stateFrequencies.begin(), m_stateFrequencies.end(), lowerState);
+	std::vector<StateFreq>::iterator end = std::lower_bound(m_stateFrequencies.begin(), m_stateFrequencies.end(), upperState);
 
 	if (start == end)
 	{
@@ -133,7 +133,7 @@ MarkovChain MarkovChain::deserialize(std::istream& s) {
 		state.deserialize(s, order);
 		SerializeUtils::assert(s, "freq");
 		freq_t freq = SerializeUtils::read_unsigned_long(s);
-		markovChain.m_stateFrequencies.push_back(MarkovStateFreq(state, freq));
+		markovChain.m_stateFrequencies.push_back(StateFreq(state, freq));
 	}
 	std::cout << "deserialized size " << markovChain.m_stateFrequencies.size() << std::endl;
 	return markovChain;
@@ -142,7 +142,7 @@ MarkovChain MarkovChain::deserialize(std::istream& s) {
 void MarkovChain::load_from_map(std::map<MarkovState, freq_t>& map) {
 	std::map<MarkovState, freq_t>::iterator state = map.begin();
 	for (state = map.begin(); state != map.end(); ++state) {
-		m_stateFrequencies.push_back(MarkovStateFreq(state->first, state->second));
+		m_stateFrequencies.push_back(StateFreq(state->first, state->second));
 	}
 }
 

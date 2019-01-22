@@ -10,14 +10,14 @@ class Dictionary;
 class StateRange
 {
 private:
-	StateFreqMap_t::iterator m_stateFreqStart;
-	StateFreqMap_t::iterator m_stateFreqEnd;
+	std::vector<StateFreq>::iterator m_stateFreqStart;
+	std::vector<StateFreq>::iterator m_stateFreqEnd;
 
 public:
-	StateRange(StateFreqMap_t::iterator start, StateFreqMap_t::iterator end);
+	StateRange(std::vector<StateFreq>::iterator start, std::vector<StateFreq>::iterator end);
 	freq_t GetTotalFrequency();
 	MarkovState GetStateAtProbability(freq_t p);
-	StateFreqMap_t::difference_type Size();
+	std::vector<StateFreq>::difference_type Size();
 	void print(Dictionary& dictionary, id_t lastRelevantId);
 };
 

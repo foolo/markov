@@ -10,12 +10,12 @@
 
 class StateRange;
 
-typedef std::vector<MarkovStateFreq> StateFreqList_t;
+typedef std::vector<StateFreq> StateFreqList_t;
 
 class MarkovChain
 {
 private:
-	StateFreqMap_t m_stateFrequencies;
+	std::vector<StateFreq> m_stateFrequencies;
 	unsigned m_markovOrder;
 
 public:
