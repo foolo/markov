@@ -2,6 +2,7 @@
 #define	STATERANGE_H
 
 #include "Types.h"
+#include "MarkovState.h"
 
 class MarkovState;
 class Dictionary;

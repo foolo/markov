@@ -81,3 +81,10 @@ MarkovState::MarkovState(const std::vector<id_t>& ids) :
 m_ids(ids)
 {
 }
+
+MarkovStateFreq::MarkovStateFreq(const MarkovState& state, freq_t freq): m_state(state), m_freq(freq) {
+}
+
+bool MarkovStateFreq::operator<(MarkovState rhs) const {
+	return m_state.operator <(rhs);
+}

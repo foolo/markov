@@ -12,7 +12,7 @@ freq_t StateRange::GetTotalFrequency()
 	freq_t sum = 0;
 	for (auto pStateFreq = m_stateFreqStart; pStateFreq != m_stateFreqEnd; pStateFreq++)
 	{
-		sum += pStateFreq->second;
+		sum += pStateFreq->m_freq;
 	}
 	return sum;
 }
@@ -22,10 +22,10 @@ MarkovState StateRange::GetStateAtProbability(freq_t p)
 	freq_t sum = 0;
 	for (auto pStateFreq = m_stateFreqStart; pStateFreq != m_stateFreqEnd; pStateFreq++)
 	{
-		sum += pStateFreq->second;
+		sum += pStateFreq->m_freq;
 		if (sum > p)
 		{
-			return pStateFreq->first;
+			return pStateFreq->m_state;
 		}
 	}
 	throw "Out of range";
@@ -44,8 +44,8 @@ void StateRange::print(Dictionary& dictionary, id_t lastRelevantId)
 	{
 		i++;
 		if (i < 10) {
-			const MarkovState &markovState(pStateFreq->first);
-			freq_t freq = pStateFreq->second;
+			const MarkovState &markovState(pStateFreq->m_state);
+			freq_t freq = pStateFreq->m_freq;
 			id_t id = markovState.GetIds().at(lastRelevantId);
 			std::string word = dictionary.SearchWordForId(id);
 			std::cout << " - " << freq << "\t" << word << std::endl;

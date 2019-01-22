@@ -20,6 +20,7 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 		exit(1);
 	}
 	std::cout << "Building Markov chain of order " << markovChain.GetOrder() << "..." << std::endl;
+	std::map<MarkovState, freq_t> tmpmap;
 	for (size_t idIndex = 0; idIndex < textSource.GetWordIds().size() - markovChain.GetOrder(); idIndex++)
 	{
 		std::vector<id_t> stateIds;
@@ -30,8 +31,9 @@ void load(MarkovChain& markovChain, Dictionary& dictionary, const std::string& f
 			stateIds.push_back(id);
 		}
 		MarkovState markovState(stateIds);
-		markovChain.RegisterState(markovState);
+		tmpmap[markovState]++;
 	}
+	markovChain.load_from_map(tmpmap);
 	std::cout << "loaded chain size: " << markovChain.GetSize() << std::endl;
 }
 
@@ -47,7 +49,7 @@ void ShowTop(MarkovChain& markovChain, Dictionary& dictionary)
 		{
 			break;
 		}
-		std::cout << pStateFreq->second << "\t" << pStateFreq->first.DebugToString(dictionary) << std::endl;
+		std::cout << pStateFreq->m_freq << "\t" << pStateFreq->m_state.DebugToString(dictionary) << std::endl;
 	}
 }
 
@@ -57,7 +59,7 @@ void ShowFirstStates(MarkovChain& markovChain, Dictionary& dictionary)
 	StateFreqList_t stateFreqs = markovChain.GetFirstStates();
 	for (auto pState = stateFreqs.begin(); pState != stateFreqs.end(); pState++)
 	{
-		std::cout << pState->second << "\t" << pState->first.DebugToString(dictionary) << std::endl;
+		std::cout << pState->m_freq << "\t" << pState->m_state.DebugToString(dictionary) << std::endl;
 	}
 }
 
