@@ -1,10 +1,10 @@
-#ifndef TEXTRENDERER_H
-#define	TEXTRENDERER_H
+#pragma once
 
 #include <vector>
 #include <string>
-#include "Dictionary.h"
 #include "Types.h"
+
+class Dictionary;
 
 class TextRenderer
 {
@@ -20,5 +20,3 @@ private:
 	bool IsDelimiter(const std::string s);
 	void HandleWord(std::string word);
 };
-
-#endif	/* TEXTRENDERER_H */

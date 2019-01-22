@@ -1,5 +1,4 @@
-#ifndef GENERATOR_H
-#define	GENERATOR_H
+#pragma once
 
 #include <vector>
 #include "Types.h"
@@ -19,5 +18,3 @@ public:
 private:
 	std::vector<id_t> GetLastN(const std::vector<id_t>& v);
 };
-
-#endif	/* GENERATOR_H */

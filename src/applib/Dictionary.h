@@ -1,5 +1,4 @@
-#ifndef DICTIONARY_H
-#define	DICTIONARY_H
+#pragma once
 
 #include <map>
 #include <string>
@@ -21,5 +20,3 @@ public:
 	static Dictionary deserialize(std::istream &s);
 	virtual ~Dictionary();
 };
-
-#endif	/* DICTIONARY_H */

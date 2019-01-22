@@ -1,5 +1,4 @@
-#ifndef SERIALIZEUTILS_H
-#define SERIALIZEUTILS_H
+#pragma once
 
 #include <istream>
 
@@ -12,6 +11,3 @@ public:
 	static void assert(std::istream& s, const std::string &expected);
 
 };
-
-#endif /* SERIALIZEUTILS_H */
-

@@ -1,5 +1,4 @@
-#ifndef MARKOVSTATE_H
-#define	MARKOVSTATE_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -34,6 +33,3 @@ public:
 	StateFreq(const MarkovState &state, freq_t freq);
 	bool operator<(MarkovState rhs) const;
 };
-
-
-#endif	/* MARKOVSTATE_H */

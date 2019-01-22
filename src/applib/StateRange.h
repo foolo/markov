@@ -1,6 +1,6 @@
-#ifndef STATERANGE_H
-#define	STATERANGE_H
+#pragma once
 
+#include <vector>
 #include "Types.h"
 #include "MarkovState.h"
 
@@ -20,5 +20,3 @@ public:
 	std::vector<StateFreq>::difference_type Size();
 	void print(Dictionary& dictionary, id_t lastRelevantId);
 };
-
-#endif	/* STATERANGE_H */

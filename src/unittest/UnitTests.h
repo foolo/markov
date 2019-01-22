@@ -1,5 +1,4 @@
-#ifndef UNITTESTS_H
-#define	UNITTESTS_H
+#pragma once
 
 #include <queue>
 #include <iostream>
@@ -73,5 +72,3 @@ class UnitTests
 public:
 	static void Run();
 };
-
-#endif	/* UNITTESTS_H */

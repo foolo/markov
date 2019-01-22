@@ -1,5 +1,4 @@
-#ifndef TIMER_H
-#define	TIMER_H
+#pragma once
 
 #include <ctime>
 #include "util/IProgressReporter.h"
@@ -18,6 +17,3 @@ public:
 	bool CheckAlarm(long intervalMs);
 	void ReportProgressIfNeeded(long intervalMs, IProgressReporter &progressReporter);
 };
-
-#endif	/* TIMER_H */
-

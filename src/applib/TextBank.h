@@ -1,8 +1,7 @@
-#ifndef TEXTSOURCE_H
-#define	TEXTSOURCE_H
+#pragma once
 
 #include <vector>
-#include "util/Timer.h"
+#include <string>
 #include "util/IProgressReporter.h"
 
 class ITextSource;
@@ -22,5 +21,3 @@ public:
 	virtual ~TextBank();
 	void ReportProgress();
 };
-
-#endif	/* TEXTSOURCE_H */

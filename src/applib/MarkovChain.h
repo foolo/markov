@@ -1,5 +1,4 @@
-#ifndef MARKOVCHAIN_H
-#define	MARKOVCHAIN_H
+#pragma once
 
 #include <vector>
 #include <ostream>
@@ -33,5 +32,3 @@ public:
 	void load_from_map(std::map<MarkovState, freq_t> &map);
 
 };
-
-#endif	/* MARKOVCHAIN_H */

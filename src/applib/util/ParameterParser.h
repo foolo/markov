@@ -1,5 +1,4 @@
-#ifndef PARAMETERPARSER_H
-#define PARAMETERPARSER_H
+#pragma once
 
 #include <map>
 #include <string>
@@ -18,6 +17,3 @@ private:
 	std::vector<std::string> m_free_params;
 
 };
-
-#endif /* PARAMETERPARSER_H */
-

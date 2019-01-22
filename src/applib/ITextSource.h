@@ -1,5 +1,4 @@
-#ifndef IFILEREADER_H
-#define	IFILEREADER_H
+#pragma once
 
 #include <string>
 
@@ -16,5 +15,3 @@ public:
 	virtual std::streampos get_size() = 0;
 	virtual std::streampos get_position() = 0;
 };
-
-#endif	/* IFILEREADER_H */

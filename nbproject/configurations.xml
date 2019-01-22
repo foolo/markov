@@ -49,7 +49,6 @@
       <flagsDictionary>
         <element flagsID="0" commonFlags="-std=c++0x"/>
         <element flagsID="1" commonFlags="-std=c++11"/>
-        <element flagsID="2" commonFlags="-std=c++14"/>
       </flagsDictionary>
       <codeAssistance>
       </codeAssistance>
@@ -100,24 +99,23 @@
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/applib/TextRenderer.cpp" ex="false" tool="1" flavor2="4">
+      <item path="src/applib/TextRenderer.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
       </item>
       <item path="src/applib/Util.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="1">
+        <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/applib/util/ParameterParser.cpp"
             ex="false"
             tool="1"
-            flavor2="11">
-        <ccTool flags="2">
+            flavor2="8">
+        <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="src/applib/util/SerializeUtils.cpp"
-            ex="false"
-            tool="1"
-            flavor2="11">
-        <ccTool flags="2">
+      <item path="src/applib/util/SerializeUtils.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/applib/util/Timer.cpp" ex="false" tool="1" flavor2="8">

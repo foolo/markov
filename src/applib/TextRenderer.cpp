@@ -1,6 +1,7 @@
 #include <iostream>
 #include "TextRenderer.h"
 #include "Util.h"
+#include "Dictionary.h"
 
 TextRenderer::TextRenderer() :
 m_textState(inital_state)

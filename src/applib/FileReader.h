@@ -1,10 +1,9 @@
-#ifndef FILEREADER_H
-#define	FILEREADER_H
+#pragma once
 
 #include <fstream>
-#include "ITextSource.h"
 #include <vector>
 #include <string>
+#include "ITextSource.h"
 
 class FileReader : public ITextSource
 {
@@ -31,5 +30,3 @@ private:
 	static void removeOccurances(std::string& s, char c);
 
 };
-
-#endif	/* FILEREADER_H */

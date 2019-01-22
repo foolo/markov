@@ -1,5 +1,4 @@
-#ifndef UTIL_H
-#define	UTIL_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -17,5 +16,3 @@ public:
 	static std::string ToLowerUtf8(const std::string& s);
 	static std::string Capitalize(const std::string& s);
 };
-
-#endif	/* UTIL_H */
