@@ -59,7 +59,7 @@ std::vector<std::string> FileReader::GetTokensInLine(std::string line)
 		surroundWithSpaces(line, *pC);
 	}
 
-	std::string ignoreCharacters("%&/()[]{}#=;:_|<>*~^£$+'`´\"«»");
+	std::string ignoreCharacters("%&/()[]{}#=;:_|<>*~^£$+'`´\"«»”");
 	for (auto pC = ignoreCharacters.begin(); pC != ignoreCharacters.end(); pC++)
 	{
 		removeOccurances(line, *pC);
