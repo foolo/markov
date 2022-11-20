@@ -16,4 +16,5 @@ public:
 	void Reset();
 	bool CheckAlarm(long intervalMs);
 	void ReportProgressIfNeeded(long intervalMs, IProgressReporter &progressReporter);
+	double get_elapsed_time();
 };

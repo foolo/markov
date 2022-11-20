@@ -28,6 +28,7 @@ MarkovState StateRange::GetStateAtProbability(freq_t p)
 			return pStateFreq->m_state;
 		}
 	}
+	std::cout << "Out of range" << std::endl;
 	throw "Out of range";
 }
 

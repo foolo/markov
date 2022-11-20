@@ -54,19 +54,22 @@ std::string MarkovState::DebugToString(Dictionary &dict) const
 	return ss.str();
 }
 
-void MarkovState::serialize(std::ostream &s) const {
+void StateFreq::serialize(std::ostream &s) const {
 	s << "ids ";
 	for (auto pId = m_ids.begin(); pId != m_ids.end(); pId++) {
 		s << *pId << " ";
 	}
+	s << "freq " << m_freq << std::endl;
 }
 
-void MarkovState::deserialize(std::istream& s, unsigned order) {
+void StateFreq::deserialize(std::istream& s, unsigned order) {
 	SerializeUtils::assert(s, "ids");
 	for (unsigned i = 0; i < order; i++) {
 		id_t id = SerializeUtils::read_unsigned(s);
 		m_ids.push_back(id);
 	}
+	SerializeUtils::assert(s, "freq");
+	m_freq = SerializeUtils::read_unsigned_long(s);
 }
 
 const std::vector<id_t>& MarkovState::GetIds() const
@@ -80,6 +83,9 @@ MarkovState::MarkovState() {
 MarkovState::MarkovState(const std::vector<id_t>& ids) :
 m_ids(ids)
 {
+}
+
+StateFreq::StateFreq() {
 }
 
 StateFreq::StateFreq(const MarkovState& state, freq_t freq): m_state(state), m_freq(freq) {

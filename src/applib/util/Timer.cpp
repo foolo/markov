@@ -31,6 +31,11 @@ void Timer::ReportProgressIfNeeded(long intervalMs, IProgressReporter &progressR
 	}
 }
 
+double Timer::get_elapsed_time() {
+	clock_t clockdiff = clock() - m_oldClock;
+	return  (double)(1000 * clockdiff) / CLOCKS_PER_SEC;
+}
+
 Timer::~Timer()
 {
 }

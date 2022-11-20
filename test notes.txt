@@ -1,0 +1,6 @@
+rm -f /tmp/x
+./markov.out --text textfile.txt --order 3 --count 100                    #1
+./markov.out --text textfile.txt --order 3 --count 100 --save /tmp/x      #2
+./markov.out --count 100 --load /tmp/x                                    #3
+
+# compare output from #1 and #3

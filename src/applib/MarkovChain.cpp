@@ -4,6 +4,7 @@
 #include "MarkovChain.h"
 #include "StateRange.h"
 #include "util/SerializeUtils.h"
+#include "util/Timer.h"
 
 MarkovChain::MarkovChain(int markovOrder) :
 m_markovOrder(markovOrder)
@@ -73,6 +74,7 @@ StateRange MarkovChain::GetRange(std::vector<id_t> firstWords)
 
 	if (start == end)
 	{
+		std::cout << "Empty range" << std::endl;
 		throw "Empty range";
 	}
 
@@ -110,16 +112,14 @@ void MarkovChain::serialize(std::ostream &s)
 	std::cout << "serializing " << m_stateFrequencies.size() << " states" << std::endl;
 	long i = 0;
 	for (auto itr = m_stateFrequencies.begin(); itr != m_stateFrequencies.end(); ++itr) {
-		const MarkovState &state = itr->m_state;
-		freq_t freq = itr->m_freq;
-		state.serialize(s);
-		s << "freq " << freq << std::endl;
+		itr->serialize(s);
 		i++;
 	}
 	std::cout << "serialized " << i << " states" << std::endl;
 }
 
 MarkovChain MarkovChain::deserialize(std::istream& s) {
+	Timer timer;
 	SerializeUtils::assert(s, "states");
 	unsigned size = SerializeUtils::read_unsigned(s);
 	SerializeUtils::assert(s, "order");
@@ -127,15 +127,13 @@ MarkovChain MarkovChain::deserialize(std::istream& s) {
 	MarkovChain markovChain(order);
 	std::cout << "deserializing size " << size << std::endl;
 	std::cout << "deserializing order " << order << std::endl;
-	std::vector<std::pair<MarkovState, freq_t> > foo;
 	for (size_t i = 0; i < size; i++) {
-		MarkovState state;
+		StateFreq state;
 		state.deserialize(s, order);
-		SerializeUtils::assert(s, "freq");
-		freq_t freq = SerializeUtils::read_unsigned_long(s);
-		markovChain.m_stateFrequencies.push_back(StateFreq(state, freq));
+		markovChain.m_stateFrequencies.push_back(state);
 	}
 	std::cout << "deserialized size " << markovChain.m_stateFrequencies.size() << std::endl;
+	std::cout << "deserialize time: " << timer.get_elapsed_time() << std::endl;
 	return markovChain;
 }
 
